@@ -138,7 +138,7 @@ async function handleThemeChange(value: 'light' | 'dark' | 'auto') {
     applyTheme(value)
   } catch (error: any) {
     console.error('保存主题失败:', error)
-    message.error(error.message || '保存主题失败')
+    showMessage(error.message || '保存主题失败', 'error')
   } finally {
     loading.value = false
   }
