@@ -89,19 +89,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, computed } from 'vue'
 import { NCard, NRadioGroup, NRadioButton, NIcon, NSpace, NTag } from 'naive-ui'
 import { SunOutline, MoonOutline, DesktopOutline } from '@vicons/ionicons5'
-import { settingsService } from '@/services/settings.service'
-import type { AppSettings } from '@/services/settings.service'
 
-// 设置数据
-const settings = ref<AppSettings>({
-  theme: 'auto',
-  language: 'zh'
+// 设置数据（本地状态）
+const settings = ref({
+  theme: 'auto' as 'light' | 'dark' | 'auto',
+  language: 'zh' as 'zh' | 'en'
 })
-
-const loading = ref(false)
 
 // Message helper
 function showMessage(content: string, type: 'success' | 'error' | 'info' = 'info') {
@@ -113,50 +109,17 @@ const storageMode = computed(() => import.meta.env.VITE_STORAGE_MODE || 'local')
 const apiUrl = computed(() => import.meta.env.VITE_API_URL || 'http://localhost:4000/api')
 const isDev = computed(() => import.meta.env.DEV)
 
-// 加载设置
-async function loadSettings() {
-  try {
-    loading.value = true
-    settings.value = await settingsService.getSettings()
-  } catch (error: any) {
-    console.error('加载设置失败:', error)
-    showMessage(error.message || '加载设置失败', 'error')
-  } finally {
-    loading.value = false
-  }
-}
-
 // 处理主题变更
-async function handleThemeChange(value: 'light' | 'dark' | 'auto') {
-  try {
-    loading.value = true
-    await settingsService.updateSettings({ theme: value })
-    settings.value.theme = value
-    showMessage('主题设置已保存', 'success')
-
-    // 应用主题
-    applyTheme(value)
-  } catch (error: any) {
-    console.error('保存主题失败:', error)
-    showMessage(error.message || '保存主题失败', 'error')
-  } finally {
-    loading.value = false
-  }
+function handleThemeChange(value: 'light' | 'dark' | 'auto') {
+  settings.value.theme = value
+  showMessage('主题设置已保存', 'success')
+  applyTheme(value)
 }
 
 // 处理语言变更
-async function handleLanguageChange(value: 'zh' | 'en') {
-  try {
-    loading.value = true
-    await settingsService.updateSettings({ language: value })
-    settings.value.language = value
-    showMessage(value === 'zh' ? '语言已切换为中文' : 'Language switched to English', 'success')
-  } catch (error: any) {
-    console.error('保存语言失败:', error)
-    showMessage(error.message || '保存语言失败', 'error')
-  } finally {
-    loading.value = false
-  }
+function handleLanguageChange(value: 'zh' | 'en') {
+  settings.value.language = value
+  showMessage(value === 'zh' ? '语言已切换为中文' : 'Language switched to English', 'success')
 }
 
 // 应用主题
@@ -171,12 +134,6 @@ function applyTheme(theme: 'light' | 'dark' | 'auto') {
     html.classList.toggle('dark', theme === 'dark')
   }
 }
-
-// 初始化
-onMounted(async () => {
-  await loadSettings()
-  applyTheme(settings.value.theme)
-})
 </script>
 
 <style scoped>
