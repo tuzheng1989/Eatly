@@ -150,7 +150,7 @@ async function handleLanguageChange(value: 'zh' | 'en') {
     loading.value = true
     await settingsService.updateSettings({ language: value })
     settings.value.language = value
-    message.success(value === 'zh' ? '语言已切换为中文' : 'Language switched to English')
+    showMessage(value === 'zh' ? '语言已切换为中文' : 'Language switched to English', 'success')
   } catch (error: any) {
     console.error('保存语言失败:', error)
     message.error(error.message || '保存语言失败')
