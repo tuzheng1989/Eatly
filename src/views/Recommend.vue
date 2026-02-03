@@ -41,7 +41,7 @@ function handleEdit(rec: import('@/types').Recommendation) {
   console.log('编辑推荐', rec)
 }
 
-async function handleConfirm(rec: any) {
+async function handleConfirm(rec: import('@/types').Recommendation) {
   await recommendStore.confirmRecommendation(rec.id)
   window.$message?.success('记录已创建')
 }
