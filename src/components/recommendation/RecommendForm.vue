@@ -18,7 +18,7 @@
 import { ref } from 'vue'
 import { NFormItem, NInputNumber, NButton } from 'naive-ui'
 
-const props = defineProps<{
+defineProps<{
   loading?: boolean
 }>()
 
