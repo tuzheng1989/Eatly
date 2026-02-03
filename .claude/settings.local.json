@@ -24,7 +24,8 @@
       "Bash(findstr:*)",
       "Bash(powershell:*)",
       "Bash(curl:*)",
-      "Bash(code:*)"
+      "Bash(code:*)",
+      "Bash(reg query:*)"
     ]
   },
   "hooks": {
