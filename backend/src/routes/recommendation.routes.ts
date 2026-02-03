@@ -21,8 +21,9 @@ router.get('/', async (req, res) => {
     )
 
     res.json(success(result.rows))
-  } catch (err: any) {
-    res.status(500).json(error(err.message))
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : '未知错误'
+    res.status(500).json(error(message))
   }
 })
 
@@ -41,8 +42,9 @@ router.post('/', async (req, res) => {
     )
 
     res.status(201).json(success(result.rows[0]))
-  } catch (err: any) {
-    res.status(500).json(error(err.message))
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : '未知错误'
+    res.status(500).json(error(message))
   }
 })
 
@@ -57,8 +59,9 @@ router.delete('/:id', async (req, res) => {
     }
 
     res.json(success({ message: '删除成功' }))
-  } catch (err: any) {
-    res.status(500).json(error(err.message))
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : '未知错误'
+    res.status(500).json(error(message))
   }
 })
 
