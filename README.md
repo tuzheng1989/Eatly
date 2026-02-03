@@ -52,6 +52,34 @@ npm run test:unit
 npm run test:e2e
 ```
 
+## 部署
+
+### 🚀 快速部署到 Ubuntu 服务器
+
+```bash
+# 1. 修改环境变量（重要！）
+nano .env.production
+# 修改 DB_PASSWORD 为强密码
+
+# 2. 一键部署
+chmod +x deploy-to-server.sh
+./deploy-to-server.sh
+```
+
+详细部署文档请查看：
+- **[快速部署指南](QUICK_DEPLOY.md)** - 三步完成部署
+- **[完整部署文档](SERVER_DEPLOYMENT.md)** - 详细的部署和运维指南
+
+### 部署架构
+
+```
+Ubuntu 服务器
+├── Nginx (反向代理)
+├── 前端容器 (Vue 3 SPA)
+├── 后端容器 (Express API)
+└── PostgreSQL (数据库)
+```
+
 ## 使用说明
 
 1. **创建方案**: 在"方案管理"中创建或编辑菜谱方案
