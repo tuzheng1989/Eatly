@@ -7,13 +7,13 @@ import { BasePage } from './BasePage'
 export class HomePage extends BasePage {
   readonly welcomeTitle: Locator
   readonly quickActions: Locator
-  readonly todayRecordCard: Locator
+  readonly actionCards: Locator
 
   constructor(page: Page) {
     super(page)
-    this.welcomeTitle = page.locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i })
-    this.quickActions = page.locator('[data-testid="quick-actions"] a, .quick-actions a')
-    this.todayRecordCard = page.locator('[data-testid="today-record"], .today-record')
+    this.welcomeTitle = page.locator('h1').filter({ hasText: /Eatly|欢迎/i })
+    this.quickActions = page.locator('.quick-actions')
+    this.actionCards = page.locator('.quick-actions .action-card')
   }
 
   /**
