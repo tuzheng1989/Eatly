@@ -43,11 +43,8 @@ class SettingsService {
       const response = await this.api.request(config)
       return response.data.data
     } catch (error: unknown) {
-      const message = error instanceof Error && 'response' in error && (error as any).response?.data?.error
-        ? (error as any).response.data.error
-        : error instanceof Error
-        ? error.message
-        : '请求失败'
+      const axiosError = error as { response?: { data?: { error?: string } } }
+      const message = axiosError.response?.data?.error || (error instanceof Error ? error.message : '请求失败')
       throw new Error(message)
     }
   }
