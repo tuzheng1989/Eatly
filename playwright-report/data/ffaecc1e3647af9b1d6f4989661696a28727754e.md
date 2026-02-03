@@ -1,0 +1,48 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - heading "🥗 Eatly" [level=1] [ref=e6]
+    - navigation [ref=e7]:
+      - link "首页" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - link "推荐" [ref=e9] [cursor=pointer]:
+        - /url: /recommend
+      - link "记录" [ref=e10] [cursor=pointer]:
+        - /url: /record
+      - link "日历" [ref=e11] [cursor=pointer]:
+        - /url: /calendar
+      - link "统计" [ref=e12] [cursor=pointer]:
+        - /url: /statistics
+      - link "方案" [ref=e13] [cursor=pointer]:
+        - /url: /schemes
+      - link "设置" [ref=e14] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - heading "菜品推荐 🎲" [level=1] [ref=e17]
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e21]: 推荐数量
+          - generic [ref=e25]:
+            - textbox "请输入推荐数量" [ref=e27]: "1"
+            - generic [ref=e28]:
+              - button [disabled] [ref=e29]:
+                - img [ref=e32]
+              - button [ref=e33] [cursor=pointer]:
+                - img [ref=e36]
+        - button "生成推荐" [ref=e39] [cursor=pointer]:
+          - generic [ref=e40]: 生成推荐
+      - generic [ref=e42]:
+        - generic [ref=e43]: 2026年02月03日
+        - generic [ref=e44]:
+          - generic [ref=e46]: "A组:"
+          - generic [ref=e48]: "B组:"
+          - generic [ref=e50]: "C组:"
+        - generic [ref=e51]:
+          - button "编辑" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: 编辑
+          - button "确认" [ref=e54] [cursor=pointer]:
+            - generic [ref=e55]: 确认
+```
