@@ -1,5 +1,4 @@
-import { storageService } from './storage/storage.service'
-import { apiStorageAdapter } from './storage/ApiStorage.adapter'
+import { storageService } from './storage'
 import type { StorageAdapter } from './storage/StorageAdapter.interface'
 import type { Scheme, PoolGroup } from '@/types'
 import { DEFAULT_SCHEME } from '@/constants/default-scheme'
@@ -7,15 +6,15 @@ import { DEFAULT_SCHEME } from '@/constants/default-scheme'
 /**
  * 方案服务
  * 支持本地存储（IndexedDB）和远程存储（HTTP API）两种模式
- * 通过环境变量 VITE_STORAGE_MODE 控制存储方式
+ * 通过环境变量 VITE_STORAGE_TYPE 控制存储方式
  */
 class SchemeService {
   private storage: StorageAdapter
 
   constructor() {
-    // 根据环境变量选择存储适配器
-    const storageMode = import.meta.env.VITE_STORAGE_MODE || 'local'
-    this.storage = storageMode === 'remote' ? apiStorageAdapter : storageService
+    // 直接使用统一的 storageService
+    // 它会根据 VITE_STORAGE_TYPE 自动选择本地或 API 存储
+    this.storage = storageService
   }
 
   async getAll(): Promise<Scheme[]> {
