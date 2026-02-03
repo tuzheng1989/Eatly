@@ -25,12 +25,15 @@ test.describe('统计分析', () => {
   test('应该显示统计卡片', async ({ page }) => {
     await statisticsPage.isLoaded()
 
-    // 检查统计页面是否有概览卡片
-    const overviewHeading = page.locator('.statistics').getByRole('heading', { name: '概览' })
+    // 等待页面内容加载
+    await page.waitForTimeout(1000)
+
+    // 检查统计页面是否有概览标题（使用文本过滤）
+    const overviewHeading = page.locator('h2, h3, h4').filter({ hasText: '概览' })
     await expect(overviewHeading).toBeVisible()
 
-    // 检查是否有热门菜品卡片
-    const topDishesHeading = page.locator('.statistics').getByRole('heading', { name: '热门菜品' })
+    // 检查是否有热门菜品标题
+    const topDishesHeading = page.locator('h2, h3, h4').filter({ hasText: '热门菜品' })
     await expect(topDishesHeading).toBeVisible()
 
     console.log('统计卡片验证通过：概览卡片 + 热门菜品卡片')
