@@ -16,6 +16,7 @@
   "dependencies": {
     "@vicons/ionicons5": "^0.13.0",
     "@vueuse/core": "^10.7.0",
+    "axios": "^1.6.0",
     "dayjs": "^1.11.0",
     "dexie": "^3.2.4",
     "echarts": "^5.4.0",
