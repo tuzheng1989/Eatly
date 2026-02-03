@@ -14,12 +14,12 @@ export class RecommendPage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.pageTitle = page.locator('h1, h2').filter({ hasText: /推荐菜品/i })
-    this.generateButton = page.locator('button').filter({ hasText: /生成推荐|推荐/i })
-    this.resultsContainer = page.locator('[data-testid="recommendation-results"], .recommendation-results')
-    this.recommendationItems = page.locator('[data-testid="recommendation-item"], .recommendation-item')
-    this.confirmButton = page.locator('button').filter({ hasText: /确认|保存/i })
-    this.regenerateButton = page.locator('button').filter({ hasText: /重新生成|换一批/i })
+    this.pageTitle = page.locator('h1').filter({ hasText: /菜品推荐/i })
+    this.generateButton = page.locator('button').filter({ hasText: '生成推荐' })
+    this.resultsContainer = page.locator('.recommendations')
+    this.recommendationItems = this.resultsContainer.locator('> *')
+    this.confirmButton = page.locator('button').filter({ hasText: '确认' })
+    this.regenerateButton = this.generateButton // 同一个按钮用于重新生成
   }
 
   /**
