@@ -90,12 +90,10 @@
 
 <script setup lang="ts">
 import { ref, onMounted, computed } from 'vue'
-import { NCard, NRadioGroup, NRadioButton, NIcon, NSpace, NTag, useMessage } from 'naive-ui'
+import { NCard, NRadioGroup, NRadioButton, NIcon, NSpace, NTag } from 'naive-ui'
 import { SunOutline, MoonOutline, DesktopOutline } from '@vicons/ionicons5'
 import { settingsService } from '@/services/settings.service'
 import type { AppSettings } from '@/services/settings.service'
-
-const message = useMessage()
 
 // 设置数据
 const settings = ref<AppSettings>({
@@ -104,6 +102,9 @@ const settings = ref<AppSettings>({
 })
 
 const loading = ref(false)
+
+// Message proxy (will be set in onMounted)
+let message: any = null
 
 // 存储信息
 const storageMode = computed(() => import.meta.env.VITE_STORAGE_MODE || 'local')
