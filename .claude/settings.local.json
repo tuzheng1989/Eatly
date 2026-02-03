@@ -22,7 +22,9 @@
       "Bash(ls:*)",
       "Bash(lsof:*)",
       "Bash(findstr:*)",
-      "Bash(powershell:*)"
+      "Bash(powershell:*)",
+      "Bash(curl:*)",
+      "Bash(code:*)"
     ]
   },
   "hooks": {
