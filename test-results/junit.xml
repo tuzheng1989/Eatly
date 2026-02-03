@@ -1,23 +1,23 @@
-<testsuites id="" name="" tests="25" failures="6" skipped="1" errors="0" time="19.227313">
-<testsuite name="calendar.spec.ts" timestamp="2026-02-03T22:56:28.899Z" hostname="chromium" tests="4" failures="0" skipped="0" time="10.267" errors="0">
-<testcase name="日历视图 › 应该正确加载日历页面" classname="calendar.spec.ts" time="1.9">
+<testsuites id="" name="" tests="25" failures="5" skipped="1" errors="0" time="18.870480999999998">
+<testsuite name="calendar.spec.ts" timestamp="2026-02-03T22:57:27.814Z" hostname="chromium" tests="4" failures="0" skipped="0" time="10.391" errors="0">
+<testcase name="日历视图 › 应该正确加载日历页面" classname="calendar.spec.ts" time="2.368">
 </testcase>
-<testcase name="日历视图 › 应该显示当前月份的日历" classname="calendar.spec.ts" time="2.224">
+<testcase name="日历视图 › 应该显示当前月份的日历" classname="calendar.spec.ts" time="1.834">
 <system-out>
 <![CDATA[日历显示 28 天（包含上下月）
 当前月份有 28 天
 ]]>
 </system-out>
 </testcase>
-<testcase name="日历视图 › 应该能点击日期查看详情" classname="calendar.spec.ts" time="2.967">
+<testcase name="日历视图 › 应该能点击日期查看详情" classname="calendar.spec.ts" time="3.026">
 </testcase>
-<testcase name="日历视图 › 应该能切换月份" classname="calendar.spec.ts" time="3.176">
+<testcase name="日历视图 › 应该能切换月份" classname="calendar.spec.ts" time="3.163">
 </testcase>
 </testsuite>
-<testsuite name="home.spec.ts" timestamp="2026-02-03T22:56:28.899Z" hostname="chromium" tests="5" failures="4" skipped="0" time="9.003" errors="0">
-<testcase name="首页 › 应该正确加载首页" classname="home.spec.ts" time="1.699">
+<testsuite name="home.spec.ts" timestamp="2026-02-03T22:57:27.814Z" hostname="chromium" tests="5" failures="4" skipped="0" time="8.149" errors="0">
+<testcase name="首页 › 应该正确加载首页" classname="home.spec.ts" time="1.45">
 </testcase>
-<testcase name="首页 › 应该显示快速操作入口" classname="home.spec.ts" time="1.895">
+<testcase name="首页 › 应该显示快速操作入口" classname="home.spec.ts" time="1.865">
 <failure message="home.spec.ts:27:3 应该显示快速操作入口" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:27:3 › 首页 › 应该显示快速操作入口 ─────────────────────────────────────────────────
 
@@ -62,7 +62,7 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="首页 › 可以通过快速操作导航到推荐页面" classname="home.spec.ts" time="2.078">
+<testcase name="首页 › 可以通过快速操作导航到推荐页面" classname="home.spec.ts" time="1.392">
 <failure message="home.spec.ts:39:3 可以通过快速操作导航到推荐页面" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:39:3 › 首页 › 可以通过快速操作导航到推荐页面 ────────────────────────────────────────────
 
@@ -107,7 +107,7 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="首页 › 可以通过快速操作导航到记录页面" classname="home.spec.ts" time="1.932">
+<testcase name="首页 › 可以通过快速操作导航到记录页面" classname="home.spec.ts" time="2.04">
 <failure message="home.spec.ts:52:3 可以通过快速操作导航到记录页面" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:52:3 › 首页 › 可以通过快速操作导航到记录页面 ────────────────────────────────────────────
 
@@ -152,7 +152,7 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="首页 › 应该显示今日记录卡片" classname="home.spec.ts" time="1.399">
+<testcase name="首页 › 应该显示今日记录卡片" classname="home.spec.ts" time="1.402">
 <failure message="home.spec.ts:65:3 应该显示今日记录卡片" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:65:3 › 首页 › 应该显示今日记录卡片 ─────────────────────────────────────────────────
 
@@ -198,81 +198,49 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="navigation.spec.ts" timestamp="2026-02-03T22:56:28.899Z" hostname="chromium" tests="3" failures="1" skipped="0" time="6.509" errors="0">
-<testcase name="应用导航 › 应该能通过 URL 直接访问各页面" classname="navigation.spec.ts" time="4.777">
+<testsuite name="navigation.spec.ts" timestamp="2026-02-03T22:57:27.814Z" hostname="chromium" tests="3" failures="0" skipped="0" time="7.329" errors="0">
+<testcase name="应用导航 › 应该能通过 URL 直接访问各页面" classname="navigation.spec.ts" time="4.753">
 </testcase>
-<testcase name="应用导航 › 应该能通过浏览器后退按钮导航" classname="navigation.spec.ts" time="0.979">
+<testcase name="应用导航 › 应该能通过浏览器后退按钮导航" classname="navigation.spec.ts" time="1.06">
 </testcase>
-<testcase name="应用导航 › 无效 URL 应该重定向到首页或显示 404" classname="navigation.spec.ts" time="0.753">
-<failure message="navigation.spec.ts:60:3 无效 URL 应该重定向到首页或显示 404" type="FAILURE">
-<![CDATA[  [chromium] › navigation.spec.ts:60:3 › 应用导航 › 无效 URL 应该重定向到首页或显示 404 ─────────────────────────────
-
-    Error: expect(received).toBeTruthy()
-
-    Received: false
-
-      67 |     const has404 = await page.locator('h1').filter({ hasText: /404|not found/i }).count() > 0
-      68 |
-    > 69 |     expect(isHomePage || has404).toBeTruthy()
-         |                                  ^
-      70 |   })
-      71 | })
-      72 |
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\navigation.spec.ts:69:34
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\error-context.md
-]]>
-</failure>
+<testcase name="应用导航 › 无效 URL 应该重定向到首页或显示 404" classname="navigation.spec.ts" time="1.516">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\video.webm]]
-
-[[ATTACHMENT|navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\error-context.md]]
+<![CDATA[当前 URL: http://localhost:3000/non-existent-page
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="recommend.spec.ts" timestamp="2026-02-03T22:56:28.899Z" hostname="chromium" tests="4" failures="0" skipped="0" time="19.799" errors="0">
-<testcase name="推荐菜品 › 应该正确加载推荐页面" classname="recommend.spec.ts" time="1.453">
+<testsuite name="recommend.spec.ts" timestamp="2026-02-03T22:57:27.814Z" hostname="chromium" tests="4" failures="0" skipped="0" time="19.902" errors="0">
+<testcase name="推荐菜品 › 应该正确加载推荐页面" classname="recommend.spec.ts" time="1.626">
 </testcase>
-<testcase name="推荐菜品 › 应该能生成推荐" classname="recommend.spec.ts" time="5">
+<testcase name="推荐菜品 › 应该能生成推荐" classname="recommend.spec.ts" time="4.825">
 <system-out>
 <![CDATA[生成了 1 个推荐项
 ]]>
 </system-out>
 </testcase>
-<testcase name="推荐菜品 › 应该能重新生成推荐" classname="recommend.spec.ts" time="7.683">
+<testcase name="推荐菜品 › 应该能重新生成推荐" classname="recommend.spec.ts" time="7.665">
 <system-out>
 <![CDATA[第一次推荐: 1 项
 第二次推荐: 1 项
 ]]>
 </system-out>
 </testcase>
-<testcase name="推荐菜品 › 应该能确认推荐并保存" classname="recommend.spec.ts" time="5.663">
+<testcase name="推荐菜品 › 应该能确认推荐并保存" classname="recommend.spec.ts" time="5.786">
 </testcase>
 </testsuite>
-<testsuite name="scheme.spec.ts" timestamp="2026-02-03T22:56:28.899Z" hostname="chromium" tests="4" failures="0" skipped="1" time="7.737" errors="0">
-<testcase name="方案管理 › 应该正确加载方案管理页面" classname="scheme.spec.ts" time="1.477">
+<testsuite name="scheme.spec.ts" timestamp="2026-02-03T22:57:27.814Z" hostname="chromium" tests="4" failures="0" skipped="1" time="7.622" errors="0">
+<testcase name="方案管理 › 应该正确加载方案管理页面" classname="scheme.spec.ts" time="1.536">
 </testcase>
-<testcase name="方案管理 › 应该能创建新方案" classname="scheme.spec.ts" time="3.604">
+<testcase name="方案管理 › 应该能创建新方案" classname="scheme.spec.ts" time="3.548">
 </testcase>
-<testcase name="方案管理 › 应该显示现有方案列表" classname="scheme.spec.ts" time="1.288">
+<testcase name="方案管理 › 应该显示现有方案列表" classname="scheme.spec.ts" time="1.259">
 <system-out>
 <![CDATA[当前方案数量: 0
 ]]>
 </system-out>
 </testcase>
-<testcase name="方案管理 › 应该能删除方案" classname="scheme.spec.ts" time="1.368">
+<testcase name="方案管理 › 应该能删除方案" classname="scheme.spec.ts" time="1.279">
 <properties>
 <property name="skip" value="">
 </property>
@@ -281,10 +249,10 @@
 </skipped>
 </testcase>
 </testsuite>
-<testsuite name="statistics.spec.ts" timestamp="2026-02-03T22:56:28.899Z" hostname="chromium" tests="5" failures="1" skipped="0" time="12.815" errors="0">
-<testcase name="统计分析 › 应该正确加载统计页面" classname="statistics.spec.ts" time="1.617">
+<testsuite name="statistics.spec.ts" timestamp="2026-02-03T22:57:27.814Z" hostname="chromium" tests="5" failures="1" skipped="0" time="12.772" errors="0">
+<testcase name="统计分析 › 应该正确加载统计页面" classname="statistics.spec.ts" time="1.533">
 </testcase>
-<testcase name="统计分析 › 应该显示统计卡片" classname="statistics.spec.ts" time="1.438">
+<testcase name="统计分析 › 应该显示统计卡片" classname="statistics.spec.ts" time="1.422">
 <failure message="statistics.spec.ts:25:3 应该显示统计卡片" type="FAILURE">
 <![CDATA[  [chromium] › statistics.spec.ts:25:3 › 统计分析 › 应该显示统计卡片 ───────────────────────────────────────────
 
@@ -324,19 +292,19 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="统计分析 › 应该显示数据图表" classname="statistics.spec.ts" time="3.629">
+<testcase name="统计分析 › 应该显示数据图表" classname="statistics.spec.ts" time="3.623">
 <system-out>
 <![CDATA[图表数量: 1
 ]]>
 </system-out>
 </testcase>
-<testcase name="统计分析 › 图表应该正确渲染" classname="statistics.spec.ts" time="4.743">
+<testcase name="统计分析 › 图表应该正确渲染" classname="statistics.spec.ts" time="4.752">
 <system-out>
 <![CDATA[图表尺寸: 1136x400
 ]]>
 </system-out>
 </testcase>
-<testcase name="统计分析 › 应该能切换时间范围" classname="statistics.spec.ts" time="1.388">
+<testcase name="统计分析 › 应该能切换时间范围" classname="statistics.spec.ts" time="1.442">
 </testcase>
 </testsuite>
 </testsuites>
