@@ -47,7 +47,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "node ./.claude/hooks/Stop.js"
+            "command": "node ./hooks/Stop.js"
           }
         ]
       }
