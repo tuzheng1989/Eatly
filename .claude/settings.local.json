@@ -7,7 +7,17 @@
       "Bash(git add:*)",
       "Bash(git commit:*)",
       "mcp__web-search-prime__webSearchPrime",
-      "mcp__web-reader__webReader"
+      "mcp__web-reader__webReader",
+      "mcp__zread__read_file",
+      "mcp__serena__check_onboarding_performed",
+      "mcp__serena__list_memories",
+      "mcp__serena__list_dir",
+      "mcp__serena__write_memory",
+      "mcp__serena__think_about_collected_information",
+      "Bash(netstat:*)",
+      "mcp__serena__read_memory",
+      "Bash(tasklist:*)",
+      "Bash(ps:*)"
     ]
   },
   "hooks": {
