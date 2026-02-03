@@ -132,7 +132,7 @@ async function handleThemeChange(value: 'light' | 'dark' | 'auto') {
     loading.value = true
     await settingsService.updateSettings({ theme: value })
     settings.value.theme = value
-    message.success('主题设置已保存')
+    showMessage('主题设置已保存', 'success')
 
     // 应用主题
     applyTheme(value)
