@@ -12,7 +12,7 @@ test.describe('推荐菜品', () => {
     await recommendPage.goto('/recommend')
   })
 
-  test('应该正确加载推荐页面', async ({ page }) => {
+  test('应该正确加载推荐页面', async ({ page: _page }) => {
     await recommendPage.isLoaded()
 
     // 验证页面标题
