@@ -12,7 +12,7 @@ test.describe('方案管理', () => {
     await schemePage.goto('/schemes')
   })
 
-  test('应该正确加载方案管理页面', async ({ page }) => {
+  test('应该正确加载方案管理页面', async ({ page: _page }) => {
     await schemePage.isLoaded()
 
     // 验证页面标题
