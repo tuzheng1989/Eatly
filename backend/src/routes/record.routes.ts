@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
     const { start, end } = req.query
 
     let query = 'SELECT * FROM records'
-    const params: any[] = []
+    const params: (string | number)[] = []
 
     if (start && end) {
       query += ' WHERE date >= $1 AND date <= $2'
