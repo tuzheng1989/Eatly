@@ -8,14 +8,16 @@ module.exports = {
   extends: [
     'plugin:vue/vue3-recommended',
     'eslint:recommended',
-    '@vue/typescript/recommended',
+    'plugin:@typescript-eslint/recommended',
     'prettier'
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
     ecmaVersion: 'latest',
-    sourceType: 'module'
+    sourceType: 'module',
+    parser: '@typescript-eslint/parser'
   },
+  plugins: ['@typescript-eslint'],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
