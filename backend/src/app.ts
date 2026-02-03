@@ -78,11 +78,12 @@ app.use((req, res) => {
 })
 
 // 错误处理
-app.use((err: any, req: any, res: any, next: any) => {
+app.use((err: unknown, req: Request, res: Response, _next: NextFunction) => {
   console.error('服务器错误:', err)
+  const message = err instanceof Error ? err.message : '未知错误'
   res.status(500).json({
     success: false,
-    error: process.env.NODE_ENV === 'production' ? '服务器内部错误' : err.message
+    error: process.env.NODE_ENV === 'production' ? '服务器内部错误' : message
   })
 })
 
