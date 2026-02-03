@@ -10,6 +10,10 @@
     "type-check": "vue-tsc --noEmit",
     "test:unit": "vitest",
     "test:e2e": "playwright test",
+    "test:e2e:headed": "playwright test --headed",
+    "test:e2e:debug": "playwright test --debug",
+    "test:e2e:chromium": "playwright test --project=chromium",
+    "test:e2e:report": "playwright show-report",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs,.ts,.tsx,.cts,.mts --fix --ignore-path .gitignore",
     "format": "prettier --write src/"
   },
