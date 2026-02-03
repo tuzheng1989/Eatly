@@ -11,7 +11,8 @@ export class HomePage extends BasePage {
 
   constructor(page: Page) {
     super(page)
-    this.welcomeTitle = page.locator('h1').filter({ hasText: /Eatly|欢迎/i })
+    // 更精确的选择器，匹配首页内容的 h1（包含"欢迎使用"）
+    this.welcomeTitle = page.locator('.home h1').or(page.locator('h1').filter({ hasText: /欢迎使用/i }))
     this.quickActions = page.locator('.quick-actions')
     this.actionCards = page.locator('.quick-actions .action-card')
   }
