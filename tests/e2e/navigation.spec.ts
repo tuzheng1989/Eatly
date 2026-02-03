@@ -62,12 +62,14 @@ test.describe('应用导航', () => {
     await page.goto('/non-existent-page')
     await page.waitForLoadState('networkidle')
 
-    // 验证处理方式（重定向到首页或显示 404）
-    const url = page.url()
-    console.log(`当前 URL: ${url}`)
-
-    // 验证页面没有崩溃（有内容显示）
+    // 验证页面没有崩溃（body 可见）
     const body = page.locator('body')
     await expect(body).toBeVisible()
+
+    // 验证 URL 保持不变（没有重定向）或者重定向到首页
+    const url = page.url()
+    const isValidResponse = url.includes('/non-existent-page') || url.endsWith('/') || url.endsWith('/#/')
+
+    expect(isValidResponse).toBeTruthy()
   })
 })
