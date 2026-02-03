@@ -8,14 +8,7 @@ export interface AppSettings {
   language: 'zh' | 'en'
 }
 
-/**
- * API 响应
- */
-interface ApiResponse<T> {
-  success: boolean
-  data?: T
-  error?: string
-}
+// 移除未使用的 ApiResponse 类型
 
 const DEFAULT_SETTINGS: AppSettings = {
   theme: 'auto',
