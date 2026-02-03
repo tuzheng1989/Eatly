@@ -36,7 +36,7 @@ async function handleGenerate(count: number) {
   await recommendStore.generateRecommendations(count)
 }
 
-function handleEdit(rec: any) {
+function handleEdit(rec: import('@/types').Recommendation) {
   // TODO: 实现编辑功能
   console.log('编辑推荐', rec)
 }
