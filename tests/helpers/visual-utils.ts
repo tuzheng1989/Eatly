@@ -42,8 +42,8 @@ export class VisualUtils {
    * 比较截图（视觉回归测试）
    */
   async compareScreenshots(
-    baseline: string,
-    current: string
+    _baseline: string,
+    _current: string
   ): Promise<boolean> {
     // 简化版本：实际项目可以使用 Playwright 的 toHaveScreenshot()
     // 或者专门的视觉回归工具
