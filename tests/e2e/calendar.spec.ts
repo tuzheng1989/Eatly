@@ -25,23 +25,24 @@ test.describe('日历视图', () => {
     await calendarPage.screenshot('calendar-page.png')
   })
 
-  test('应该显示当前月份的日历', async ({ page: _page }) => {
+  test('应该显示当前月份的日历', async ({ page }) => {
     await calendarPage.isLoaded()
 
-    // 获取日历天数
-    const dayCount = await calendarPage.getDayCount()
-    console.log(`日历显示 ${dayCount} 天`)
+    // 获取所有日历天数（包括上下月）
+    const allDayCount = await calendarPage.getDayCount()
+    console.log(`日历显示 ${allDayCount} 天（包含上下月）`)
 
-    // 一个月应该有 28-31 天
-    expect(dayCount).toBeGreaterThanOrEqual(28)
-    expect(dayCount).toBeLessThanOrEqual(31)
+    // 应该有日期显示（数量因月份而异）
+    expect(allDayCount).toBeGreaterThan(0)
 
-    // 验证今天高亮显示
-    const hasToday = await calendarPage.hasTodayHighlight()
-    if (hasToday) {
-      await expect(calendarPage.todayHighlight).toBeVisible()
-      console.log('今天已高亮显示')
-    }
+    // 获取当前月份的日期（不包括其他月份）
+    const currentMonthDays = page.locator('.day-cell:not(.other-month)')
+    const currentMonthDayCount = await currentMonthDays.count()
+    console.log(`当前月份有 ${currentMonthDayCount} 天`)
+
+    // 当前月份应该有 28-31 天
+    expect(currentMonthDayCount).toBeGreaterThanOrEqual(28)
+    expect(currentMonthDayCount).toBeLessThanOrEqual(31)
   })
 
   test('应该能点击日期查看详情', async ({ page }) => {
