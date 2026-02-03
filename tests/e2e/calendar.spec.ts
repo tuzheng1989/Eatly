@@ -12,7 +12,7 @@ test.describe('日历视图', () => {
     await calendarPage.goto('/calendar')
   })
 
-  test('应该正确加载日历页面', async ({ page }) => {
+  test('应该正确加载日历页面', async ({ page: _page }) => {
     await calendarPage.isLoaded()
 
     // 验证页面标题
@@ -25,7 +25,7 @@ test.describe('日历视图', () => {
     await calendarPage.screenshot('calendar-page.png')
   })
 
-  test('应该显示当前月份的日历', async ({ page }) => {
+  test('应该显示当前月份的日历', async ({ page: _page }) => {
     await calendarPage.isLoaded()
 
     // 获取日历天数
