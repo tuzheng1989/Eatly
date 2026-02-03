@@ -1,8 +1,13 @@
 import { db } from './db'
 import type { Scheme, Record, Recommendation, Settings } from '@/types'
 import { generateUUID } from '@/utils/uuid'
+import type { StorageAdapter } from './StorageAdapter.interface'
 
-class StorageService {
+/**
+ * 本地存储服务实现（基于 IndexedDB/Dexie）
+ * 实现了 StorageAdapter 接口，提供本地数据持久化能力
+ */
+class StorageService implements StorageAdapter {
   // Scheme CRUD
   async getAllSchemes(): Promise<Scheme[]> {
     return await db.schemes.toArray()
