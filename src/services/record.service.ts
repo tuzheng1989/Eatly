@@ -1,10 +1,23 @@
 import { storageService } from './storage/storage.service'
+import { apiStorageAdapter } from './storage/ApiStorage.adapter'
+import type { StorageAdapter } from './storage/StorageAdapter.interface'
 import type { Record } from '@/types'
 import dayjs from 'dayjs'
 
+/**
+ * 记录服务
+ * 支持本地存储和远程存储两种模式
+ */
 class RecordService {
+  private storage: StorageAdapter
+
+  constructor() {
+    const storageMode = import.meta.env.VITE_STORAGE_MODE || 'local'
+    this.storage = storageMode === 'remote' ? apiStorageAdapter : storageService
+  }
+
   async getAll(): Promise<Record[]> {
-    return await storageService.getAllRecords()
+    return await this.storage.getAllRecords()
   }
 
   async getByDateRange(startDate?: string, endDate?: string): Promise<Record[]> {
@@ -14,11 +27,11 @@ class RecordService {
     if (!endDate) {
       endDate = dayjs().format('YYYY-MM-DD')
     }
-    return await storageService.getRecordsByDateRange(startDate, endDate)
+    return await this.storage.getRecordsByDateRange(startDate, endDate)
   }
 
   async getByDate(date: string): Promise<Record | undefined> {
-    return await storageService.getRecordByDate(date)
+    return await this.storage.getRecordByDate(date)
   }
 
   async create(data: Omit<Record, 'id' | 'createdAt' | 'updatedAt'>): Promise<Record> {
@@ -31,15 +44,15 @@ class RecordService {
       throw new Error('该日期已有记录')
     }
 
-    return await storageService.createRecord(data)
+    return await this.storage.createRecord(data)
   }
 
   async update(id: string, updates: Partial<Record>): Promise<Record> {
-    return await storageService.updateRecord(id, updates)
+    return await this.storage.updateRecord(id, updates)
   }
 
   async delete(id: string): Promise<void> {
-    await storageService.deleteRecord(id)
+    await this.storage.deleteRecord(id)
   }
 
   async getRecent(days: number = 7): Promise<Record[]> {
