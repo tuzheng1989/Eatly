@@ -8,14 +8,18 @@ export class CalendarPage extends BasePage {
   readonly pageTitle: Locator
   readonly calendarGrid: Locator
   readonly calendarDays: Locator
-  readonly todayHighlight: Locator
+  readonly monthTitle: Locator
+  readonly nextMonthButton: Locator
+  readonly prevMonthButton: Locator
 
   constructor(page: Page) {
     super(page)
-    this.pageTitle = page.locator('h1, h2').filter({ hasText: /日历|日历视图/i })
-    this.calendarGrid = page.locator('[data-testid="calendar-grid"], .calendar-grid')
-    this.calendarDays = page.locator('[data-testid="calendar-day"], .calendar-day')
-    this.todayHighlight = page.locator('[data-testid="today"], .today, .is-today')
+    this.pageTitle = page.locator('h1').filter({ hasText: /日历视图/i })
+    this.calendarGrid = page.locator('.calendar-days')
+    this.calendarDays = page.locator('.day-cell')
+    this.monthTitle = page.locator('.calendar-header h3')
+    this.nextMonthButton = page.locator('.calendar-header button').last()
+    this.prevMonthButton = page.locator('.calendar-header button').first()
   }
 
   /**
@@ -41,10 +45,18 @@ export class CalendarPage extends BasePage {
   }
 
   /**
-   * 验证今天高亮
+   * 切换到下个月
    */
-  async hasTodayHighlight(): Promise<boolean> {
-    const count = await this.todayHighlight.count()
-    return count > 0
+  async nextMonth() {
+    await this.nextMonthButton.click()
+    await this.page.waitForTimeout(500)
+  }
+
+  /**
+   * 切换到上个月
+   */
+  async previousMonth() {
+    await this.prevMonthButton.click()
+    await this.page.waitForTimeout(500)
   }
 }
