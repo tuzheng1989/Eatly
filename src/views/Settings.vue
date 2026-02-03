@@ -153,7 +153,7 @@ async function handleLanguageChange(value: 'zh' | 'en') {
     showMessage(value === 'zh' ? '语言已切换为中文' : 'Language switched to English', 'success')
   } catch (error: any) {
     console.error('保存语言失败:', error)
-    message.error(error.message || '保存语言失败')
+    showMessage(error.message || '保存语言失败', 'error')
   } finally {
     loading.value = false
   }
