@@ -22,7 +22,7 @@ import { NButton, NTag } from 'naive-ui'
 import type { Recommendation } from '@/types'
 import dayjs from 'dayjs'
 
-const props = defineProps<{
+defineProps<{
   recommendation: Recommendation
 }>()
 
