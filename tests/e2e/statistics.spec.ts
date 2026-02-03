@@ -12,7 +12,7 @@ test.describe('统计分析', () => {
     await statisticsPage.goto('/statistics')
   })
 
-  test('应该正确加载统计页面', async ({ page }) => {
+  test('应该正确加载统计页面', async ({ page: _page }) => {
     await statisticsPage.isLoaded()
 
     // 验证页面标题
@@ -22,7 +22,7 @@ test.describe('统计分析', () => {
     await statisticsPage.screenshot('statistics-page.png')
   })
 
-  test('应该显示统计卡片', async ({ page }) => {
+  test('应该显示统计卡片', async ({ page: _page }) => {
     await statisticsPage.isLoaded()
 
     const cardCount = await statisticsPage.getStatsCardCount()
@@ -32,7 +32,7 @@ test.describe('统计分析', () => {
     expect(cardCount).toBeGreaterThanOrEqual(3)
   })
 
-  test('应该显示数据图表', async ({ page }) => {
+  test('应该显示数据图表', async ({ page: _page }) => {
     await statisticsPage.isLoaded()
 
     // 等待图表渲染
