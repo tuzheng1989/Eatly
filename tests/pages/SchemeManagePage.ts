@@ -7,17 +7,17 @@ import { BasePage } from './BasePage'
 export class SchemeManagePage extends BasePage {
   readonly pageTitle: Locator
   readonly createSchemeButton: Locator
-  readonly schemeList: Locator
   readonly schemeItems: Locator
   readonly deleteButton: Locator
+  readonly schemeNameInput: Locator
 
   constructor(page: Page) {
     super(page)
-    this.pageTitle = page.locator('h1, h2').filter({ hasText: /方案管理/i })
-    this.createSchemeButton = page.locator('button').filter({ hasText: /创建方案|新建方案/i })
-    this.schemeList = page.locator('[data-testid="scheme-list"], .scheme-list')
-    this.schemeItems = page.locator('[data-testid="scheme-item"], .scheme-item')
-    this.deleteButton = page.locator('button').filter({ hasText: /删除/i })
+    this.pageTitle = page.locator('h1').filter({ hasText: /方案管理/i })
+    this.createSchemeButton = page.locator('button').filter({ hasText: '创建方案' })
+    this.schemeItems = page.locator('.scheme-item')
+    this.deleteButton = page.locator('button').filter({ hasText: '删除' })
+    this.schemeNameInput = page.locator('input[placeholder*="方案名称"]')
   }
 
   /**
@@ -39,30 +39,38 @@ export class SchemeManagePage extends BasePage {
    * 创建新方案
    */
   async createScheme(name: string, description?: string) {
-    await this.createSchemeButton.click()
-
     // 填写方案名称
-    await this.page.locator('input[name="name"], [data-testid="scheme-name"]').fill(name)
+    await this.schemeNameInput.fill(name)
 
     // 填写描述（可选）
     if (description) {
-      await this.page.locator('textarea[name="description"], [data-testid="scheme-description"]').fill(description)
+      await this.page.locator('textarea[placeholder*="描述"]').fill(description)
     }
 
-    // 提交
-    await this.page.locator('button[type="submit"]').filter({ hasText: /创建|保存/i }).click()
+    // 点击创建按钮
+    await this.createSchemeButton.click()
+
+    // 等待创建完成
+    await this.page.waitForTimeout(2000)
   }
 
   /**
    * 删除第一个方案
    */
   async deleteFirstScheme() {
-    const firstScheme = this.schemeItems.first()
-    await firstScheme.hover()
-    await this.deleteButton.first().click()
+    const schemeCount = await this.getSchemeCount()
+    if (schemeCount === 0) return
 
-    // 确认删除
-    const confirmButton = this.page.locator('button').filter({ hasText: /确认/i })
-    await confirmButton.click()
+    const firstDeleteBtn = this.deleteButton.first()
+    await firstDeleteBtn.click()
+
+    // 等待可能的确认对话框
+    await this.page.waitForTimeout(1000)
+
+    // 检查是否有确认按钮
+    const confirmButton = this.page.locator('button').filter({ hasText: /确认|确定/i })
+    if (await confirmButton.count() > 0) {
+      await confirmButton.click()
+    }
   }
 }
