@@ -42,8 +42,8 @@ test.describe('首页', () => {
     // 点击第一个快速操作卡片（获取推荐）
     await homePage.clickActionCard(0)
 
-    // 等待导航
-    await page.waitForTimeout(1000)
+    // 等待导航完成 - 使用 waitForURL 替代 waitForTimeout
+    await page.waitForURL(/\/recommend/, { timeout: 3000 })
 
     // 验证导航到推荐页面
     await expect(page).toHaveURL(/\/recommend/)
@@ -55,8 +55,8 @@ test.describe('首页', () => {
     // 点击第二个快速操作卡片（记录饮食）
     await homePage.clickActionCard(1)
 
-    // 等待导航
-    await page.waitForTimeout(1000)
+    // 等待导航完成 - 使用 waitForURL 替代 waitForTimeout
+    await page.waitForURL(/\/record/, { timeout: 3000 })
 
     // 验证导航到记录页面
     await expect(page).toHaveURL(/\/record/)
