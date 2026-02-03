@@ -12,7 +12,7 @@ test.describe('首页', () => {
     await homePage.goto('/')
   })
 
-  test('应该正确加载首页', async ({ page }) => {
+  test('应该正确加载首页', async ({ page: _page }) => {
     // 验证页面标题
     const title = await homePage.getTitle()
     expect(title).toMatch(/Eatly|饮食/)
@@ -24,7 +24,7 @@ test.describe('首页', () => {
     await homePage.screenshot('home-page.png')
   })
 
-  test('应该显示快速操作入口', async ({ page }) => {
+  test('应该显示快速操作入口', async ({ page: _page }) => {
     await homePage.isLoaded()
 
     // 获取快速操作数量
