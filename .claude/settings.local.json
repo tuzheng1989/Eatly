@@ -21,7 +21,8 @@
       "Bash(wmic:*)",
       "Bash(ls:*)",
       "Bash(lsof:*)",
-      "Bash(findstr:*)"
+      "Bash(findstr:*)",
+      "Bash(powershell:*)"
     ]
   },
   "hooks": {
