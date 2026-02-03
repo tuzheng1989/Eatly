@@ -35,6 +35,13 @@ export class HomePage extends BasePage {
    * 点击快速操作
    */
   async clickQuickAction(name: string) {
-    await this.quickActions.filter({ hasText: name }).click()
+    await this.actionCards.filter({ hasText: name }).click()
+  }
+
+  /**
+   * 点击快速操作卡片（通过索引）
+   */
+  async clickActionCard(index: number) {
+    await this.actionCards.nth(index).click()
   }
 }
