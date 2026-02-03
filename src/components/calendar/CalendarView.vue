@@ -32,7 +32,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { NButton, NIcon } from 'naive-ui'
 import { ChevronBack, ChevronForward } from '@vicons/ionicons5'
 import type { Record } from '@/types'
