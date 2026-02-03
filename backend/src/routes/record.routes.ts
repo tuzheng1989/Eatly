@@ -1,9 +1,9 @@
-import { Router } from 'express'
+import { Router, type Request, type Response } from 'express'
 import { pool } from '../app'
 
 const router = Router()
 
-const success = (data: any) => ({ success: true, data })
+const success = <T,>(data: T) => ({ success: true, data })
 const error = (message: string) => ({ success: false, error: message })
 
 // 获取所有记录
