@@ -29,7 +29,8 @@
       "Bash(node:*)",
       "Bash(npx playwright:*)",
       "Bash(docker-compose:*)",
-      "Bash(docker inspect:*)"
+      "Bash(docker inspect:*)",
+      "Bash(docker exec:*)"
     ]
   },
   "hooks": {
