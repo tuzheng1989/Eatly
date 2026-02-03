@@ -1,19 +1,19 @@
-import { storageService } from './storage/storage.service'
-import { apiStorageAdapter } from './storage/ApiStorage.adapter'
+import { storageService } from './storage'
 import type { StorageAdapter } from './storage/StorageAdapter.interface'
 import type { Record } from '@/types'
 import dayjs from 'dayjs'
 
 /**
  * 记录服务
- * 支持本地存储和远程存储两种模式
+ * 支持本地存储（IndexedDB）和远程存储（HTTP API）两种模式
+ * 通过环境变量 VITE_STORAGE_TYPE 自动选择存储方式
  */
 class RecordService {
   private storage: StorageAdapter
 
   constructor() {
-    const storageMode = import.meta.env.VITE_STORAGE_MODE || 'local'
-    this.storage = storageMode === 'remote' ? apiStorageAdapter : storageService
+    // 直接使用统一的 storageService
+    this.storage = storageService
   }
 
   async getAll(): Promise<Record[]> {
