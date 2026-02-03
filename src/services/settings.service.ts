@@ -1,6 +1,4 @@
-import { storageService } from './storage/storage.service'
-import { apiStorageAdapter } from './storage/ApiStorage.adapter'
-import type { StorageAdapter } from './storage/StorageAdapter.interface'
+import axios from 'axios'
 
 /**
  * 应用设置
@@ -11,27 +9,89 @@ export interface AppSettings {
 }
 
 /**
+ * API 响应
+ */
+interface ApiResponse<T> {
+  success: boolean
+  data?: T
+  error?: string
+}
+
+const DEFAULT_SETTINGS: AppSettings = {
+  theme: 'auto',
+  language: 'zh'
+}
+
+/**
  * 设置服务
  * 支持本地存储（LocalStorage）和远程存储（HTTP API）两种模式
  * 通过环境变量 VITE_STORAGE_MODE 控制存储方式
  */
 class SettingsService {
-  private storage: StorageAdapter
+  private storageMode: string
+  private api: ReturnType<typeof axios.create>
 
   constructor() {
-    // 根据环境变量选择存储适配器
-    const storageMode = import.meta.env.VITE_STORAGE_MODE || 'local'
-    this.storage = storageMode === 'remote' ? apiStorageAdapter : storageService
+    this.storageMode = import.meta.env.VITE_STORAGE_MODE || 'local'
+
+    // 初始化 API 客户端
+    this.api = axios.create({
+      baseURL: import.meta.env.VITE_API_URL || 'http://localhost:4000/api',
+      timeout: 10000,
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': import.meta.env.VITE_API_KEY || ''
+      }
+    })
+  }
+
+  private async request<T>(config: any): Promise<T> {
+    try {
+      const response = await this.api.request(config)
+      return response.data.data
+    } catch (error: any) {
+      const message = error.response?.data?.error || error.message || '请求失败'
+      throw new Error(message)
+    }
   }
 
   async getSettings(): Promise<AppSettings> {
-    return await this.storage.getSettings()
+    if (this.storageMode === 'remote') {
+      // 从后端 API 获取
+      return this.request<AppSettings>({
+        method: 'GET',
+        url: '/settings'
+      })
+    } else {
+      // 从 LocalStorage 获取
+      const saved = localStorage.getItem('app_settings')
+      if (saved) {
+        try {
+          return { ...DEFAULT_SETTINGS, ...JSON.parse(saved) }
+        } catch (e) {
+          console.error('Failed to parse settings:', e)
+          return DEFAULT_SETTINGS
+        }
+      }
+      return DEFAULT_SETTINGS
+    }
   }
 
   async updateSettings(updates: Partial<AppSettings>): Promise<AppSettings> {
-    const current = await this.getSettings()
-    const merged = { ...current, ...updates }
-    return await this.storage.updateSettings(merged)
+    if (this.storageMode === 'remote') {
+      // 更新后端 API
+      return this.request<AppSettings>({
+        method: 'PUT',
+        url: '/settings',
+        data: updates
+      })
+    } else {
+      // 更新 LocalStorage
+      const current = await this.getSettings()
+      const merged = { ...current, ...updates }
+      localStorage.setItem('app_settings', JSON.stringify(merged))
+      return merged
+    }
   }
 }
 
