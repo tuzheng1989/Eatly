@@ -120,9 +120,10 @@ async function handleThemeChange() {
     await settingsService.updateSettings({ theme: settings.value.theme })
     showSaveStatus('success', '主题设置已保存')
     applyTheme(settings.value.theme)
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('保存主题失败:', error)
-    showSaveStatus('error', error.message || '保存主题失败')
+    const message = error instanceof Error ? error.message : '保存主题失败'
+    showSaveStatus('error', message)
   }
 }
 
