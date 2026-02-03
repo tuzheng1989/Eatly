@@ -13,7 +13,8 @@ export class StatisticsPage extends BasePage {
     super(page)
     this.pageTitle = page.locator('h1, h2').filter({ hasText: /统计|分析/i })
     this.charts = page.locator('[data-testid="chart"], canvas, .chart')
-    this.statsCards = page.locator('[data-testid="stat-card"], .stat-card')
+    // Naive UI 的 n-card 组件
+    this.statsCards = page.locator('.statistics n-card')
   }
 
   /**
