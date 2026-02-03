@@ -62,10 +62,17 @@ test.describe('首页', () => {
     await expect(page).toHaveURL(/\/record/)
   })
 
-  test('应该显示今日记录卡片', async ({ page: _page }) => {
+  test('快速操作卡片应该显示正确的标题', async ({ page: _page }) => {
     await homePage.isLoaded()
 
-    // 快速操作卡片应该可见
+    // 验证所有快速操作卡片可见
     await expect(homePage.actionCards.first()).toBeVisible()
+    await expect(homePage.actionCards.nth(1)).toBeVisible()
+    await expect(homePage.actionCards.nth(2)).toBeVisible()
+    await expect(homePage.actionCards.nth(3)).toBeVisible()
+
+    // 验证第一个卡片包含"获取推荐"文本
+    const firstCard = homePage.actionCards.first()
+    await expect(firstCard).toContainText(/获取推荐/)
   })
 })
