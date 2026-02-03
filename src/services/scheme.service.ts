@@ -1,7 +1,7 @@
 import { storageService } from './storage/storage.service'
 import { apiStorageAdapter } from './storage/ApiStorage.adapter'
 import type { StorageAdapter } from './storage/StorageAdapter.interface'
-import type { Scheme, PoolType, PoolGroup } from '@/types'
+import type { Scheme, PoolGroup } from '@/types'
 import { DEFAULT_SCHEME } from '@/constants/default-scheme'
 
 /**
