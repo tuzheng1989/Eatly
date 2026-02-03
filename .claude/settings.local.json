@@ -25,7 +25,8 @@
       "Bash(powershell:*)",
       "Bash(curl:*)",
       "Bash(code:*)",
-      "Bash(reg query:*)"
+      "Bash(reg query:*)",
+      "Bash(node:*)"
     ]
   },
   "hooks": {
