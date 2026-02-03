@@ -22,8 +22,9 @@ router.get('/', async (req, res) => {
     }
 
     res.json(success(result.rows[0]))
-  } catch (err: any) {
-    res.status(500).json(error(err.message))
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : '未知错误'
+    res.status(500).json(error(message))
   }
 })
 
@@ -72,8 +73,9 @@ router.put('/', async (req, res) => {
     )
 
     res.json(success(result.rows[0]))
-  } catch (err: any) {
-    res.status(500).json(error(err.message))
+  } catch (err: unknown) {
+    const message = err instanceof Error ? err.message : '未知错误'
+    res.status(500).json(error(message))
   }
 })
 
