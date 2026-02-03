@@ -58,7 +58,7 @@ test.describe('首页', () => {
     await expect(page.locator('h1, h2').filter({ hasText: /记录饮食/i })).toBeVisible()
   })
 
-  test('应该显示今日记录卡片', async ({ page }) => {
+  test('应该显示今日记录卡片', async ({ page: _page }) => {
     await homePage.isLoaded()
 
     // 今日记录卡片应该可见（可能为空）
