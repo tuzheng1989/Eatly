@@ -67,28 +67,19 @@ test.describe('日历视图', () => {
     await calendarPage.isLoaded()
 
     // 获取当前月份标题
-    const monthTitle = page.locator('[data-testid="current-month"], .current-month')
+    const currentMonth = await calendarPage.monthTitle.textContent()
 
     // 点击下个月按钮
-    const nextButton = page.locator('button').filter({ hasText: /下月|>/i })
-    if (await nextButton.count() > 0) {
-      const currentMonth = await monthTitle.textContent()
-      await nextButton.click()
-      await page.waitForTimeout(500)
+    await calendarPage.nextMonth()
 
-      const newMonth = await monthTitle.textContent()
-      expect(newMonth).not.toBe(currentMonth)
+    const newMonth = await calendarPage.monthTitle.textContent()
+    expect(newMonth).not.toBe(currentMonth)
 
-      await calendarPage.screenshot('calendar-next-month.png')
-    }
+    await calendarPage.screenshot('calendar-next-month.png')
 
     // 点击上个月按钮
-    const prevButton = page.locator('button').filter({ hasText: /上月|</i })
-    if (await prevButton.count() > 0) {
-      await prevButton.click()
-      await page.waitForTimeout(500)
+    await calendarPage.previousMonth()
 
-      await calendarPage.screenshot('calendar-prev-month.png')
-    }
+    await calendarPage.screenshot('calendar-prev-month.png')
   })
 })
