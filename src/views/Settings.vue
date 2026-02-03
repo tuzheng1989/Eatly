@@ -120,7 +120,7 @@ async function loadSettings() {
     settings.value = await settingsService.getSettings()
   } catch (error: any) {
     console.error('加载设置失败:', error)
-    message.error(error.message || '加载设置失败')
+    showMessage(error.message || '加载设置失败', 'error')
   } finally {
     loading.value = false
   }
