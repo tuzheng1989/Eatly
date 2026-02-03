@@ -1,54 +1,96 @@
 version: '3.8'
 
 services:
-  # Eatly 前端应用
-  eatly-frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    container_name: eatly-frontend
+  # PostgreSQL 数据库
+  db:
+    image: postgres:15-alpine
+    container_name: eatly-db
     restart: unless-stopped
-    ports:
-      - "8080:80"  # 宿主机端口:容器端口
+    networks:
+      - eatly-network
+    environment:
+      - POSTGRES_DB=eatly
+      - POSTGRES_USER=eatly
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-eatly_secure_password_change_me}
+    volumes:
+      - db-data:/var/lib/postgresql/data
+      - ./backend/src/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U eatly"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Eatly 后端 API
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: eatly-backend
+    restart: unless-stopped
     networks:
       - eatly-network
     environment:
       - NODE_ENV=production
-    labels:
-      - "com.eatly.description=Eatly 饮食记录应用"
-      - "com.eatly.version=1.0.0"
+      - PORT=4000
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_NAME=eatly
+      - DB_USER=eatly
+      - DB_PASSWORD=${DB_PASSWORD:-eatly_secure_password_change_me}
+      - API_KEY=${API_KEY:-}
+      - FRONTEND_URL=http://101.200.122.190
+    depends_on:
+      db:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:4000/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
-  # (可选) 后续可添加后端服务
-  # eatly-backend:
-  #   build: ./backend
-  #   container_name: eatly-backend
-  #   restart: unless-stopped
-  #   ports:
-  #     - "3000:3000"
-  #   networks:
-  #     - eatly-network
-  #   environment:
-  #     - DATABASE_URL=postgresql://user:pass@db:5432/eatly
-  #   depends_on:
-  #     - db
+  # Eatly 前端应用
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - VITE_API_URL=http://101.200.122.190/api
+    container_name: eatly-frontend
+    restart: unless-stopped
+    networks:
+      - eatly-network
+    environment:
+      - NODE_ENV=production
 
-  # (可选) 数据库（如果需要后端）
-  # db:
-  #   image: postgres:15-alpine
-  #   container_name: eatly-db
-  #   restart: unless-stopped
-  #   networks:
-  #     - eatly-network
-  #   environment:
-  #     - POSTGRES_DB=eatly
-  #     - POSTGRES_USER=eatly
-  #     - POSTGRES_PASSWORD=changeme
-  #   volumes:
-  #     - db-data:/var/lib/postgresql/data
+  # Nginx 反向代理
+  nginx:
+    image: nginx:alpine
+    container_name: eatly-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - eatly-network
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/conf.d:/etc/nginx/conf.d:ro
+      # HTTPS 证书（后续配置）
+      # - ./nginx/ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - frontend
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
 
 networks:
   eatly-network:
     driver: bridge
 
-# volumes:
-#   db-data:
+volumes:
+  db-data:
+    driver: local
