@@ -52,7 +52,7 @@ test.describe('方案管理', () => {
     await schemePage.screenshot('scheme-created.png')
   })
 
-  test('应该显示现有方案列表', async ({ page }) => {
+  test('应该显示现有方案列表', async ({ page: _page }) => {
     await schemePage.isLoaded()
 
     const schemeCount = await schemePage.getSchemeCount()
