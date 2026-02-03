@@ -25,13 +25,15 @@ test.describe('统计分析', () => {
   test('应该显示统计卡片', async ({ page }) => {
     await statisticsPage.isLoaded()
 
-    // 检查页面是否有 n-card 组件
-    const cards = page.locator('.statistics n-card')
-    const cardCount = await cards.count()
-    console.log(`n-card 数量: ${cardCount}`)
+    // 检查统计页面是否有概览卡片
+    const overviewHeading = page.locator('.statistics').getByRole('heading', { name: '概览' })
+    await expect(overviewHeading).toBeVisible()
 
-    // 应该至少有卡片显示
-    expect(cardCount).toBeGreaterThan(0)
+    // 检查是否有热门菜品卡片
+    const topDishesHeading = page.locator('.statistics').getByRole('heading', { name: '热门菜品' })
+    await expect(topDishesHeading).toBeVisible()
+
+    console.log('统计卡片验证通过：概览卡片 + 热门菜品卡片')
   })
 
   test('应该显示数据图表', async ({ page: _page }) => {
