@@ -13,7 +13,7 @@ class RecommendService {
     startDate: string = dayjs().format('YYYY-MM-DD')
   ): Promise<Recommendation[]> {
     const recommendations: Recommendation[] = []
-    let workingPools: PoolGroup = JSON.parse(JSON.stringify(pools))
+    const workingPools: PoolGroup = JSON.parse(JSON.stringify(pools))
 
     for (let i = 0; i < count; i++) {
       const date = dayjs(startDate).add(i, 'day').format('YYYY-MM-DD')

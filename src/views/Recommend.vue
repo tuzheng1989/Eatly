@@ -7,7 +7,7 @@
       @generate="handleGenerate"
     />
 
-    <div class="recommendations" v-if="recommendations.length > 0">
+    <div v-if="recommendations.length > 0" class="recommendations">
       <RecommendItem
         v-for="rec in recommendations"
         :key="rec.id"

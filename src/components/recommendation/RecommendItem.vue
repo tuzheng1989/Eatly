@@ -2,16 +2,16 @@
   <div class="recommend-item">
     <div class="date">{{ formatDate(recommendation.date) }}</div>
     <div class="meals">
-      <div class="meal-item" v-for="(dish, group) in recommendation.meals" :key="group">
+      <div v-for="(dish, group) in recommendation.meals" :key="group" class="meal-item">
         <span class="group-label">{{ group }}组:</span>
         <span class="dish-name">{{ dish }}</span>
       </div>
     </div>
-    <div class="actions" v-if="!recommendation.isConfirmed">
+    <div v-if="!recommendation.isConfirmed" class="actions">
       <n-button size="small" @click="handleEdit">编辑</n-button>
       <n-button type="primary" size="small" @click="handleConfirm">确认</n-button>
     </div>
-    <div class="confirmed" v-else>
+    <div v-else class="confirmed">
       <n-tag type="success">已确认</n-tag>
     </div>
   </div>

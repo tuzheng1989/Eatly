@@ -1,13 +1,13 @@
 <template>
   <div class="calendar-view">
     <div class="calendar-header">
-      <n-button @click="previousMonth" text>
+      <n-button text @click="previousMonth">
         <template #icon>
           <n-icon><ChevronBack /></n-icon>
         </template>
       </n-button>
       <h3>{{ currentMonth }}</h3>
-      <n-button @click="nextMonth" text>
+      <n-button text @click="nextMonth">
         <template #icon>
           <n-icon><ChevronForward /></n-icon>
         </template>

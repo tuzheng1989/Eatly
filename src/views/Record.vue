@@ -19,7 +19,7 @@
         <n-input v-model:value="formValue.note" type="textarea" placeholder="可选备注" />
       </n-form-item>
       <n-form-item>
-        <n-button type="primary" @click="handleSubmit" :loading="loading">
+        <n-button type="primary" :loading="loading" @click="handleSubmit">
           保存记录
         </n-button>
       </n-form-item>

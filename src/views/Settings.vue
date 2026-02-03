@@ -14,17 +14,17 @@
         </div>
         <div class="setting-control">
           <label class="radio-option">
-            <input type="radio" v-model="settings.theme" value="light" @change="handleThemeChange" />
+            <input v-model="settings.theme" type="radio" value="light" @change="handleThemeChange" />
             <span class="radio-icon">☀️</span>
             浅色
           </label>
           <label class="radio-option">
-            <input type="radio" v-model="settings.theme" value="dark" @change="handleThemeChange" />
+            <input v-model="settings.theme" type="radio" value="dark" @change="handleThemeChange" />
             <span class="radio-icon">🌙</span>
             深色
           </label>
           <label class="radio-option">
-            <input type="radio" v-model="settings.theme" value="auto" @change="handleThemeChange" />
+            <input v-model="settings.theme" type="radio" value="auto" @change="handleThemeChange" />
             <span class="radio-icon">💻</span>
             跟随系统
           </label>
@@ -44,12 +44,12 @@
         </div>
         <div class="setting-control">
           <label class="radio-option">
-            <input type="radio" v-model="settings.language" value="zh" @change="handleLanguageChange" />
+            <input v-model="settings.language" type="radio" value="zh" @change="handleLanguageChange" />
             <span class="radio-icon">🇨🇳</span>
             中文
           </label>
           <label class="radio-option">
-            <input type="radio" v-model="settings.language" value="en" @change="handleLanguageChange" />
+            <input v-model="settings.language" type="radio" value="en" @change="handleLanguageChange" />
             <span class="radio-icon">🇺🇸</span>
             English
           </label>
@@ -69,7 +69,7 @@
             {{ storageMode === 'remote' ? '☁️ 云端存储 (API)' : '💾 本地存储 (IndexedDB)' }}
           </span>
         </div>
-        <div class="info-item" v-if="storageMode === 'remote'">
+        <div v-if="storageMode === 'remote'" class="info-item">
           <span class="info-label">API 地址：</span>
           <span class="info-value">{{ apiUrl }}</span>
         </div>

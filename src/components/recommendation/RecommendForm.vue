@@ -8,7 +8,7 @@
         placeholder="请输入推荐数量"
       />
     </n-form-item>
-    <n-button type="primary" @click="handleGenerate" :loading="loading">
+    <n-button type="primary" :loading="loading" @click="handleGenerate">
       生成推荐
     </n-button>
   </div>
