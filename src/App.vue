@@ -12,13 +12,10 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue'
 import { useMessage } from 'naive-ui'
 import { NConfigProvider, NMessageProvider, NLoadingBarProvider } from 'naive-ui'
 import AppHeader from '@/components/common/AppHeader.vue'
-
-// Expose message API for global use
-const message = useMessage()
-;(window as any).$message = message
 
 const themeOverrides = {
   common: {
@@ -27,6 +24,17 @@ const themeOverrides = {
     primaryColorPressed: '#2c8a60'
   }
 }
+
+// Expose message API for global use after component is mounted
+// This ensures NMessageProvider is available when useMessage is called
+onMounted(() => {
+  const message = useMessage()
+  Object.defineProperty(window, '$message', {
+    get() {
+      return message
+    }
+  })
+})
 </script>
 
 <style>
