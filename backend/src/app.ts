@@ -45,7 +45,7 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 // API Key 验证中间件
-const apiKeyMiddleware = (req: any, res: any, next: any) => {
+const apiKeyMiddleware = (req: Request, res: Response, next: NextFunction) => {
   const apiKey = req.headers['x-api-key']
   const validApiKey = process.env.API_KEY
 
