@@ -19,5 +19,30 @@
         - /url: /schemes
       - link "设置" [ref=e14] [cursor=pointer]:
         - /url: /settings
-  - main [ref=e15]
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - heading "菜品推荐 🎲" [level=1] [ref=e17]
+      - generic [ref=e18]:
+        - generic [ref=e19]:
+          - generic [ref=e21]: 推荐数量
+          - generic [ref=e25]:
+            - textbox "请输入推荐数量" [ref=e27]: "1"
+            - generic [ref=e28]:
+              - button [disabled] [ref=e29]:
+                - img [ref=e32]
+              - button [ref=e33] [cursor=pointer]:
+                - img [ref=e36]
+        - button "生成推荐" [ref=e39] [cursor=pointer]:
+          - generic [ref=e40]: 生成推荐
+      - generic [ref=e42]:
+        - generic [ref=e43]: 2026年02月03日
+        - generic [ref=e44]:
+          - generic [ref=e46]: "A组:"
+          - generic [ref=e48]: "B组:"
+          - generic [ref=e50]: "C组:"
+        - generic [ref=e51]:
+          - button "编辑" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: 编辑
+          - button "确认" [ref=e54] [cursor=pointer]:
+            - generic [ref=e55]: 确认
 ```

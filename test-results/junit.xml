@@ -1,22 +1,29 @@
-<testsuites id="" name="" tests="26" failures="24" skipped="0" errors="0" time="36.107953">
-<testsuite name="calendar.spec.ts" timestamp="2026-02-03T22:41:20.382Z" hostname="chromium" tests="4" failures="4" skipped="0" time="22.324" errors="0">
-<testcase name="日历视图 › 应该正确加载日历页面" classname="calendar.spec.ts" time="5.592">
+<testsuites id="" name="" tests="26" failures="17" skipped="1" errors="0" time="70.46416599999999">
+<testsuite name="calendar.spec.ts" timestamp="2026-02-03T22:44:25.813Z" hostname="chromium" tests="4" failures="3" skipped="0" time="42.471" errors="0">
+<testcase name="日历视图 › 应该正确加载日历页面" classname="calendar.spec.ts" time="7.007">
 <failure message="calendar.spec.ts:15:3 应该正确加载日历页面" type="FAILURE">
 <![CDATA[  [chromium] › calendar.spec.ts:15:3 › 日历视图 › 应该正确加载日历页面 ───────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: expect(locator).toBeVisible() failed
 
-       at ..\pages\CalendarPage.ts:26
+    Locator: locator('[data-testid="calendar-grid"], .calendar-grid')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
 
-      24 |   async isLoaded() {
-      25 |     await this.page.waitForLoadState('networkidle')
-    > 26 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      27 |   }
-      28 |
-      29 |   /**
-        at CalendarPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\CalendarPage.ts:26:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:16:5
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="calendar-grid"], .calendar-grid')
+
+
+      21 |
+      22 |     // 验证日历网格可见
+    > 23 |     await expect(calendarPage.calendarGrid).toBeVisible()
+         |                                             ^
+      24 |
+      25 |     await calendarPage.screenshot('calendar-page.png')
+      26 |   })
+        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:23:45
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\calendar-日历视图-应该正确加载日历页面-chromium\test-failed-1.png
@@ -39,23 +46,23 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="日历视图 › 应该显示当前月份的日历" classname="calendar.spec.ts" time="5.582">
+<testcase name="日历视图 › 应该显示当前月份的日历" classname="calendar.spec.ts" time="1.782">
 <failure message="calendar.spec.ts:28:3 应该显示当前月份的日历" type="FAILURE">
 <![CDATA[  [chromium] › calendar.spec.ts:28:3 › 日历视图 › 应该显示当前月份的日历 ──────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
 
-       at ..\pages\CalendarPage.ts:26
+    Expected: >= 28
+    Received:    0
 
-      24 |   async isLoaded() {
-      25 |     await this.page.waitForLoadState('networkidle')
-    > 26 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      27 |   }
-      28 |
-      29 |   /**
-        at CalendarPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\CalendarPage.ts:26:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:29:5
+      34 |
+      35 |     // 一个月应该有 28-31 天
+    > 36 |     expect(dayCount).toBeGreaterThanOrEqual(28)
+         |                      ^
+      37 |     expect(dayCount).toBeLessThanOrEqual(31)
+      38 |
+      39 |     // 验证今天高亮显示
+        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:36:22
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\calendar-日历视图-应该显示当前月份的日历-chromium\test-failed-1.png
@@ -69,7 +76,8 @@
 ]]>
 </failure>
 <system-out>
-<![CDATA[
+<![CDATA[日历显示 0 天
+
 [[ATTACHMENT|calendar-日历视图-应该显示当前月份的日历-chromium\test-failed-1.png]]
 
 [[ATTACHMENT|calendar-日历视图-应该显示当前月份的日历-chromium\video.webm]]
@@ -78,23 +86,28 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="日历视图 › 应该能点击日期查看详情" classname="calendar.spec.ts" time="5.546">
+<testcase name="日历视图 › 应该能点击日期查看详情" classname="calendar.spec.ts" time="31.556">
 <failure message="calendar.spec.ts:47:3 应该能点击日期查看详情" type="FAILURE">
 <![CDATA[  [chromium] › calendar.spec.ts:47:3 › 日历视图 › 应该能点击日期查看详情 ──────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
 
-       at ..\pages\CalendarPage.ts:26
+    Error: locator.click: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('[data-testid="calendar-day"], .calendar-day').nth(14)
 
-      24 |   async isLoaded() {
-      25 |     await this.page.waitForLoadState('networkidle')
-    > 26 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      27 |   }
-      28 |
-      29 |   /**
-        at CalendarPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\CalendarPage.ts:26:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:48:5
+
+       at ..\pages\CalendarPage.ts:40
+
+      38 |    */
+      39 |   async clickDate(day: number) {
+    > 40 |     await this.calendarDays.nth(day - 1).click()
+         |                                          ^
+      41 |   }
+      42 |
+      43 |   /**
+        at CalendarPage.clickDate (C:\Users\tuzhe\runspace\eatly\tests\pages\CalendarPage.ts:40:42)
+        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:51:24
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\calendar-日历视图-应该能点击日期查看详情-chromium\test-failed-1.png
@@ -117,65 +130,34 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="日历视图 › 应该能切换月份" classname="calendar.spec.ts" time="5.604">
-<failure message="calendar.spec.ts:66:3 应该能切换月份" type="FAILURE">
-<![CDATA[  [chromium] › calendar.spec.ts:66:3 › 日历视图 › 应该能切换月份 ──────────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\CalendarPage.ts:26
-
-      24 |   async isLoaded() {
-      25 |     await this.page.waitForLoadState('networkidle')
-    > 26 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      27 |   }
-      28 |
-      29 |   /**
-        at CalendarPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\CalendarPage.ts:26:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\calendar.spec.ts:67:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\calendar-日历视图-应该能切换月份-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\calendar-日历视图-应该能切换月份-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\calendar-日历视图-应该能切换月份-chromium\error-context.md
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|calendar-日历视图-应该能切换月份-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|calendar-日历视图-应该能切换月份-chromium\video.webm]]
-
-[[ATTACHMENT|calendar-日历视图-应该能切换月份-chromium\error-context.md]]
-]]>
-</system-out>
+<testcase name="日历视图 › 应该能切换月份" classname="calendar.spec.ts" time="2.126">
 </testcase>
 </testsuite>
-<testsuite name="home.spec.ts" timestamp="2026-02-03T22:41:20.382Z" hostname="chromium" tests="5" failures="4" skipped="0" time="20.725" errors="0">
-<testcase name="首页 › 应该正确加载首页" classname="home.spec.ts" time="5.743">
+<testsuite name="home.spec.ts" timestamp="2026-02-03T22:44:25.813Z" hostname="chromium" tests="5" failures="4" skipped="0" time="8.924" errors="0">
+<testcase name="首页 › 应该正确加载首页" classname="home.spec.ts" time="1.776">
 </testcase>
-<testcase name="首页 › 应该显示快速操作入口" classname="home.spec.ts" time="5.582">
+<testcase name="首页 › 应该显示快速操作入口" classname="home.spec.ts" time="2.118">
 <failure message="home.spec.ts:27:3 应该显示快速操作入口" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:27:3 › 首页 › 应该显示快速操作入口 ─────────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: locator.waitFor: Error: strict mode violation: locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) resolved to 2 elements:
+        1) <h1 data-v-1820f6ff="">🥗 Eatly</h1> aka getByRole('heading', { name: '🥗 Eatly' })
+        2) <h1 data-v-2dc54a20="">欢迎使用 Eatly 🥗</h1> aka getByRole('heading', { name: '欢迎使用 Eatly 🥗' })
+
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) to be visible
+
 
        at ..\pages\HomePage.ts:24
 
       22 |   async isLoaded() {
       23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.welcomeTitle).toBeVisible()
-         |     ^
+    > 24 |     await this.welcomeTitle.waitFor()
+         |                             ^
       25 |   }
       26 |
       27 |   /**
-        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:5)
+        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:29)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\home.spec.ts:28:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -199,22 +181,28 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="首页 › 可以通过快速操作导航到推荐页面" classname="home.spec.ts" time="2.412">
+<testcase name="首页 › 可以通过快速操作导航到推荐页面" classname="home.spec.ts" time="1.748">
 <failure message="home.spec.ts:39:3 可以通过快速操作导航到推荐页面" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:39:3 › 首页 › 可以通过快速操作导航到推荐页面 ────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: locator.waitFor: Error: strict mode violation: locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) resolved to 2 elements:
+        1) <h1 data-v-1820f6ff="">🥗 Eatly</h1> aka getByRole('heading', { name: '🥗 Eatly' })
+        2) <h1 data-v-2dc54a20="">欢迎使用 Eatly 🥗</h1> aka getByRole('heading', { name: '欢迎使用 Eatly 🥗' })
+
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) to be visible
+
 
        at ..\pages\HomePage.ts:24
 
       22 |   async isLoaded() {
       23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.welcomeTitle).toBeVisible()
-         |     ^
+    > 24 |     await this.welcomeTitle.waitFor()
+         |                             ^
       25 |   }
       26 |
       27 |   /**
-        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:5)
+        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:29)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\home.spec.ts:40:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -238,22 +226,28 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="首页 › 可以通过快速操作导航到记录页面" classname="home.spec.ts" time="4.621">
+<testcase name="首页 › 可以通过快速操作导航到记录页面" classname="home.spec.ts" time="1.387">
 <failure message="home.spec.ts:50:3 可以通过快速操作导航到记录页面" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:50:3 › 首页 › 可以通过快速操作导航到记录页面 ────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: locator.waitFor: Error: strict mode violation: locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) resolved to 2 elements:
+        1) <h1 data-v-1820f6ff="">🥗 Eatly</h1> aka getByRole('heading', { name: '🥗 Eatly' })
+        2) <h1 data-v-2dc54a20="">欢迎使用 Eatly 🥗</h1> aka getByRole('heading', { name: '欢迎使用 Eatly 🥗' })
+
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) to be visible
+
 
        at ..\pages\HomePage.ts:24
 
       22 |   async isLoaded() {
       23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.welcomeTitle).toBeVisible()
-         |     ^
+    > 24 |     await this.welcomeTitle.waitFor()
+         |                             ^
       25 |   }
       26 |
       27 |   /**
-        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:5)
+        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:29)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\home.spec.ts:51:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -277,22 +271,28 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="首页 › 应该显示今日记录卡片" classname="home.spec.ts" time="2.367">
+<testcase name="首页 › 应该显示今日记录卡片" classname="home.spec.ts" time="1.895">
 <failure message="home.spec.ts:61:3 应该显示今日记录卡片" type="FAILURE">
 <![CDATA[  [chromium] › home.spec.ts:61:3 › 首页 › 应该显示今日记录卡片 ─────────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: locator.waitFor: Error: strict mode violation: locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) resolved to 2 elements:
+        1) <h1 data-v-1820f6ff="">🥗 Eatly</h1> aka getByRole('heading', { name: '🥗 Eatly' })
+        2) <h1 data-v-2dc54a20="">欢迎使用 Eatly 🥗</h1> aka getByRole('heading', { name: '欢迎使用 Eatly 🥗' })
+
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /Eatly|饮食|欢迎/i }) to be visible
+
 
        at ..\pages\HomePage.ts:24
 
       22 |   async isLoaded() {
       23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.welcomeTitle).toBeVisible()
-         |     ^
+    > 24 |     await this.welcomeTitle.waitFor()
+         |                             ^
       25 |   }
       26 |
       27 |   /**
-        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:5)
+        at HomePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\HomePage.ts:24:29)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\home.spec.ts:62:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -317,23 +317,28 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="navigation.spec.ts" timestamp="2026-02-03T22:41:20.382Z" hostname="chromium" tests="4" failures="3" skipped="0" time="15.128" errors="0">
-<testcase name="应用导航 › 应该能通过导航栏访问所有页面" classname="navigation.spec.ts" time="3.203">
+<testsuite name="navigation.spec.ts" timestamp="2026-02-03T22:44:25.813Z" hostname="chromium" tests="4" failures="3" skipped="0" time="39.432" errors="0">
+<testcase name="应用导航 › 应该能通过导航栏访问所有页面" classname="navigation.spec.ts" time="31.957">
 <failure message="navigation.spec.ts:13:3 应该能通过导航栏访问所有页面" type="FAILURE">
 <![CDATA[  [chromium] › navigation.spec.ts:13:3 › 应用导航 › 应该能通过导航栏访问所有页面 ─────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.waitFor: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /推荐菜品/i }) to be visible
+
 
        at ..\pages\RecommendPage.ts:30
 
       28 |   async isLoaded() {
       29 |     await this.page.waitForLoadState('networkidle')
-    > 30 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
+    > 30 |     await this.pageTitle.waitFor()
+         |                          ^
       31 |   }
       32 |
       33 |   /**
-        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:5)
+        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:26)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\navigation.spec.ts:24:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -357,7 +362,7 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="应用导航 › 应该能通过 URL 直接访问各页面" classname="navigation.spec.ts" time="7.552">
+<testcase name="应用导航 › 应该能通过 URL 直接访问各页面" classname="navigation.spec.ts" time="5.913">
 <failure message="navigation.spec.ts:49:3 应该能通过 URL 直接访问各页面" type="FAILURE">
 <![CDATA[  [chromium] › navigation.spec.ts:49:3 › 应用导航 › 应该能通过 URL 直接访问各页面 ──────────────────────────────────
 
@@ -403,9 +408,9 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="应用导航 › 应该能通过浏览器后退按钮导航" classname="navigation.spec.ts" time="2.481">
+<testcase name="应用导航 › 应该能通过浏览器后退按钮导航" classname="navigation.spec.ts" time="0.938">
 </testcase>
-<testcase name="应用导航 › 无效 URL 应该重定向到首页或显示 404" classname="navigation.spec.ts" time="1.892">
+<testcase name="应用导航 › 无效 URL 应该重定向到首页或显示 404" classname="navigation.spec.ts" time="0.624">
 <failure message="navigation.spec.ts:91:3 无效 URL 应该重定向到首页或显示 404" type="FAILURE">
 <![CDATA[  [chromium] › navigation.spec.ts:91:3 › 应用导航 › 无效 URL 应该重定向到首页或显示 404 ─────────────────────────────
 
@@ -429,8 +434,6 @@
     attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
     ..\..\test-results\navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\video.webm
     ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\error-context.md
 ]]>
 </failure>
 <system-out>
@@ -438,29 +441,32 @@
 [[ATTACHMENT|navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\test-failed-1.png]]
 
 [[ATTACHMENT|navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\video.webm]]
-
-[[ATTACHMENT|navigation-应用导航-无效-URL-应该重定向到首页或显示-404-chromium\error-context.md]]
 ]]>
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="recommend.spec.ts" timestamp="2026-02-03T22:41:20.382Z" hostname="chromium" tests="4" failures="4" skipped="0" time="10.904" errors="0">
-<testcase name="推荐菜品 › 应该正确加载推荐页面" classname="recommend.spec.ts" time="2.799">
+<testsuite name="recommend.spec.ts" timestamp="2026-02-03T22:44:25.813Z" hostname="chromium" tests="4" failures="4" skipped="0" time="127.777" errors="0">
+<testcase name="推荐菜品 › 应该正确加载推荐页面" classname="recommend.spec.ts" time="31.921">
 <failure message="recommend.spec.ts:15:3 应该正确加载推荐页面" type="FAILURE">
 <![CDATA[  [chromium] › recommend.spec.ts:15:3 › 推荐菜品 › 应该正确加载推荐页面 ──────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.waitFor: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /推荐菜品/i }) to be visible
+
 
        at ..\pages\RecommendPage.ts:30
 
       28 |   async isLoaded() {
       29 |     await this.page.waitForLoadState('networkidle')
-    > 30 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
+    > 30 |     await this.pageTitle.waitFor()
+         |                          ^
       31 |   }
       32 |
       33 |   /**
-        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:5)
+        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:26)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\recommend.spec.ts:16:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -484,22 +490,27 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="推荐菜品 › 应该能生成推荐" classname="recommend.spec.ts" time="2.79">
+<testcase name="推荐菜品 › 应该能生成推荐" classname="recommend.spec.ts" time="31.832">
 <failure message="recommend.spec.ts:28:3 应该能生成推荐" type="FAILURE">
 <![CDATA[  [chromium] › recommend.spec.ts:28:3 › 推荐菜品 › 应该能生成推荐 ─────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.waitFor: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /推荐菜品/i }) to be visible
+
 
        at ..\pages\RecommendPage.ts:30
 
       28 |   async isLoaded() {
       29 |     await this.page.waitForLoadState('networkidle')
-    > 30 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
+    > 30 |     await this.pageTitle.waitFor()
+         |                          ^
       31 |   }
       32 |
       33 |   /**
-        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:5)
+        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:26)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\recommend.spec.ts:29:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -523,22 +534,27 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="推荐菜品 › 应该能重新生成推荐" classname="recommend.spec.ts" time="2.731">
+<testcase name="推荐菜品 › 应该能重新生成推荐" classname="recommend.spec.ts" time="31.881">
 <failure message="recommend.spec.ts:51:3 应该能重新生成推荐" type="FAILURE">
 <![CDATA[  [chromium] › recommend.spec.ts:51:3 › 推荐菜品 › 应该能重新生成推荐 ───────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.waitFor: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /推荐菜品/i }) to be visible
+
 
        at ..\pages\RecommendPage.ts:30
 
       28 |   async isLoaded() {
       29 |     await this.page.waitForLoadState('networkidle')
-    > 30 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
+    > 30 |     await this.pageTitle.waitFor()
+         |                          ^
       31 |   }
       32 |
       33 |   /**
-        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:5)
+        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:26)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\recommend.spec.ts:52:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -562,22 +578,27 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="推荐菜品 › 应该能确认推荐并保存" classname="recommend.spec.ts" time="2.584">
+<testcase name="推荐菜品 › 应该能确认推荐并保存" classname="recommend.spec.ts" time="32.143">
 <failure message="recommend.spec.ts:72:3 应该能确认推荐并保存" type="FAILURE">
 <![CDATA[  [chromium] › recommend.spec.ts:72:3 › 推荐菜品 › 应该能确认推荐并保存 ──────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
+
+    Error: locator.waitFor: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('h1, h2').filter({ hasText: /推荐菜品/i }) to be visible
+
 
        at ..\pages\RecommendPage.ts:30
 
       28 |   async isLoaded() {
       29 |     await this.page.waitForLoadState('networkidle')
-    > 30 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
+    > 30 |     await this.pageTitle.waitFor()
+         |                          ^
       31 |   }
       32 |
       33 |   /**
-        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:5)
+        at RecommendPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\RecommendPage.ts:30:26)
         at C:\Users\tuzhe\runspace\eatly\tests\e2e\recommend.spec.ts:73:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
@@ -602,63 +623,31 @@
 </system-out>
 </testcase>
 </testsuite>
-<testsuite name="scheme.spec.ts" timestamp="2026-02-03T22:41:20.382Z" hostname="chromium" tests="4" failures="4" skipped="0" time="11.571" errors="0">
-<testcase name="方案管理 › 应该正确加载方案管理页面" classname="scheme.spec.ts" time="2.661">
-<failure message="scheme.spec.ts:15:3 应该正确加载方案管理页面" type="FAILURE">
-<![CDATA[  [chromium] › scheme.spec.ts:15:3 › 方案管理 › 应该正确加载方案管理页面 ───────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\SchemeManagePage.ts:28
-
-      26 |   async isLoaded() {
-      27 |     await this.page.waitForLoadState('networkidle')
-    > 28 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      29 |   }
-      30 |
-      31 |   /**
-        at SchemeManagePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\SchemeManagePage.ts:28:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\scheme.spec.ts:16:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\scheme-方案管理-应该正确加载方案管理页面-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\scheme-方案管理-应该正确加载方案管理页面-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\scheme-方案管理-应该正确加载方案管理页面-chromium\error-context.md
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|scheme-方案管理-应该正确加载方案管理页面-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|scheme-方案管理-应该正确加载方案管理页面-chromium\video.webm]]
-
-[[ATTACHMENT|scheme-方案管理-应该正确加载方案管理页面-chromium\error-context.md]]
-]]>
-</system-out>
+<testsuite name="scheme.spec.ts" timestamp="2026-02-03T22:44:25.813Z" hostname="chromium" tests="4" failures="2" skipped="1" time="41.23" errors="0">
+<testcase name="方案管理 › 应该正确加载方案管理页面" classname="scheme.spec.ts" time="1.439">
 </testcase>
-<testcase name="方案管理 › 应该能创建新方案" classname="scheme.spec.ts" time="2.72">
+<testcase name="方案管理 › 应该能创建新方案" classname="scheme.spec.ts" time="31.724">
 <failure message="scheme.spec.ts:28:3 应该能创建新方案" type="FAILURE">
 <![CDATA[  [chromium] › scheme.spec.ts:28:3 › 方案管理 › 应该能创建新方案 ───────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Test timeout of 30000ms exceeded.
 
-       at ..\pages\SchemeManagePage.ts:28
+    Error: locator.fill: Test timeout of 30000ms exceeded.
+    Call log:
+      - waiting for locator('input[name="name"], [data-testid="scheme-name"]')
 
-      26 |   async isLoaded() {
-      27 |     await this.page.waitForLoadState('networkidle')
-    > 28 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      29 |   }
-      30 |
-      31 |   /**
-        at SchemeManagePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\SchemeManagePage.ts:28:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\scheme.spec.ts:29:5
+
+       at ..\pages\SchemeManagePage.ts:45
+
+      43 |
+      44 |     // 填写方案名称
+    > 45 |     await this.page.locator('input[name="name"], [data-testid="scheme-name"]').fill(name)
+         |                                                                                ^
+      46 |
+      47 |     // 填写描述（可选）
+      48 |     if (description) {
+        at SchemeManagePage.createScheme (C:\Users\tuzhe\runspace\eatly\tests\pages\SchemeManagePage.ts:45:80)
+        at C:\Users\tuzhe\runspace\eatly\tests\e2e\scheme.spec.ts:36:5
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\scheme-方案管理-应该能创建新方案-chromium\test-failed-1.png
@@ -672,7 +661,8 @@
 ]]>
 </failure>
 <system-out>
-<![CDATA[
+<![CDATA[初始方案数量: 0
+
 [[ATTACHMENT|scheme-方案管理-应该能创建新方案-chromium\test-failed-1.png]]
 
 [[ATTACHMENT|scheme-方案管理-应该能创建新方案-chromium\video.webm]]
@@ -681,23 +671,30 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="方案管理 › 应该显示现有方案列表" classname="scheme.spec.ts" time="3.694">
+<testcase name="方案管理 › 应该显示现有方案列表" classname="scheme.spec.ts" time="6.79">
 <failure message="scheme.spec.ts:55:3 应该显示现有方案列表" type="FAILURE">
 <![CDATA[  [chromium] › scheme.spec.ts:55:3 › 方案管理 › 应该显示现有方案列表 ─────────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: expect(locator).toBeVisible() failed
 
-       at ..\pages\SchemeManagePage.ts:28
+    Locator: locator('[data-testid="scheme-list"], .scheme-list')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
 
-      26 |   async isLoaded() {
-      27 |     await this.page.waitForLoadState('networkidle')
-    > 28 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      29 |   }
-      30 |
-      31 |   /**
-        at SchemeManagePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\SchemeManagePage.ts:28:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\scheme.spec.ts:56:5
+    Call log:
+      - Expect "toBeVisible" with timeout 5000ms
+      - waiting for locator('[data-testid="scheme-list"], .scheme-list')
+
+
+      60 |
+      61 |     // 验证方案列表可见
+    > 62 |     await expect(schemePage.schemeList).toBeVisible()
+         |                                         ^
+      63 |
+      64 |     // 如果有方案，验证它们可见
+      65 |     if (schemeCount > 0) {
+        at C:\Users\tuzhe\runspace\eatly\tests\e2e\scheme.spec.ts:62:41
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\scheme-方案管理-应该显示现有方案列表-chromium\test-failed-1.png
@@ -711,7 +708,8 @@
 ]]>
 </failure>
 <system-out>
-<![CDATA[
+<![CDATA[当前方案数量: 0
+
 [[ATTACHMENT|scheme-方案管理-应该显示现有方案列表-chromium\test-failed-1.png]]
 
 [[ATTACHMENT|scheme-方案管理-应该显示现有方案列表-chromium\video.webm]]
@@ -720,103 +718,35 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="方案管理 › 应该能删除方案" classname="scheme.spec.ts" time="2.496">
-<failure message="scheme.spec.ts:70:3 应该能删除方案" type="FAILURE">
-<![CDATA[  [chromium] › scheme.spec.ts:70:3 › 方案管理 › 应该能删除方案 ────────────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\SchemeManagePage.ts:28
-
-      26 |   async isLoaded() {
-      27 |     await this.page.waitForLoadState('networkidle')
-    > 28 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      29 |   }
-      30 |
-      31 |   /**
-        at SchemeManagePage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\SchemeManagePage.ts:28:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\scheme.spec.ts:71:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\scheme-方案管理-应该能删除方案-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\scheme-方案管理-应该能删除方案-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\scheme-方案管理-应该能删除方案-chromium\error-context.md
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|scheme-方案管理-应该能删除方案-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|scheme-方案管理-应该能删除方案-chromium\video.webm]]
-
-[[ATTACHMENT|scheme-方案管理-应该能删除方案-chromium\error-context.md]]
-]]>
-</system-out>
+<testcase name="方案管理 › 应该能删除方案" classname="scheme.spec.ts" time="1.277">
+<properties>
+<property name="skip" value="">
+</property>
+</properties>
+<skipped>
+</skipped>
 </testcase>
 </testsuite>
-<testsuite name="statistics.spec.ts" timestamp="2026-02-03T22:41:20.382Z" hostname="chromium" tests="5" failures="5" skipped="0" time="17.587" errors="0">
-<testcase name="统计分析 › 应该正确加载统计页面" classname="statistics.spec.ts" time="2.813">
-<failure message="statistics.spec.ts:15:3 应该正确加载统计页面" type="FAILURE">
-<![CDATA[  [chromium] › statistics.spec.ts:15:3 › 统计分析 › 应该正确加载统计页面 ─────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\StatisticsPage.ts:24
-
-      22 |   async isLoaded() {
-      23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      25 |   }
-      26 |
-      27 |   /**
-        at StatisticsPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\StatisticsPage.ts:24:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\statistics.spec.ts:16:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-应该正确加载统计页面-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-应该正确加载统计页面-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\statistics-统计分析-应该正确加载统计页面-chromium\error-context.md
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|statistics-统计分析-应该正确加载统计页面-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|statistics-统计分析-应该正确加载统计页面-chromium\video.webm]]
-
-[[ATTACHMENT|statistics-统计分析-应该正确加载统计页面-chromium\error-context.md]]
-]]>
-</system-out>
+<testsuite name="statistics.spec.ts" timestamp="2026-02-03T22:44:25.813Z" hostname="chromium" tests="5" failures="1" skipped="0" time="12.98" errors="0">
+<testcase name="统计分析 › 应该正确加载统计页面" classname="statistics.spec.ts" time="1.636">
 </testcase>
-<testcase name="统计分析 › 应该显示统计卡片" classname="statistics.spec.ts" time="3.748">
+<testcase name="统计分析 › 应该显示统计卡片" classname="statistics.spec.ts" time="1.459">
 <failure message="statistics.spec.ts:25:3 应该显示统计卡片" type="FAILURE">
 <![CDATA[  [chromium] › statistics.spec.ts:25:3 › 统计分析 › 应该显示统计卡片 ───────────────────────────────────────────
 
-    ReferenceError: expect is not defined
+    Error: expect(received).toBeGreaterThanOrEqual(expected)
 
-       at ..\pages\StatisticsPage.ts:24
+    Expected: >= 3
+    Received:    0
 
-      22 |   async isLoaded() {
-      23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      25 |   }
-      26 |
-      27 |   /**
-        at StatisticsPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\StatisticsPage.ts:24:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\statistics.spec.ts:26:5
+      30 |
+      31 |     // 至少应该有 3 个统计卡片
+    > 32 |     expect(cardCount).toBeGreaterThanOrEqual(3)
+         |                       ^
+      33 |   })
+      34 |
+      35 |   test('应该显示数据图表', async ({ page: _page }) => {
+        at C:\Users\tuzhe\runspace\eatly\tests\e2e\statistics.spec.ts:32:23
 
     attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
     ..\..\test-results\statistics-统计分析-应该显示统计卡片-chromium\test-failed-1.png
@@ -830,7 +760,8 @@
 ]]>
 </failure>
 <system-out>
-<![CDATA[
+<![CDATA[统计卡片数量: 0
+
 [[ATTACHMENT|statistics-统计分析-应该显示统计卡片-chromium\test-failed-1.png]]
 
 [[ATTACHMENT|statistics-统计分析-应该显示统计卡片-chromium\video.webm]]
@@ -839,122 +770,19 @@
 ]]>
 </system-out>
 </testcase>
-<testcase name="统计分析 › 应该显示数据图表" classname="statistics.spec.ts" time="3.954">
-<failure message="statistics.spec.ts:35:3 应该显示数据图表" type="FAILURE">
-<![CDATA[  [chromium] › statistics.spec.ts:35:3 › 统计分析 › 应该显示数据图表 ───────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\StatisticsPage.ts:24
-
-      22 |   async isLoaded() {
-      23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      25 |   }
-      26 |
-      27 |   /**
-        at StatisticsPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\StatisticsPage.ts:24:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\statistics.spec.ts:36:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-应该显示数据图表-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-应该显示数据图表-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\statistics-统计分析-应该显示数据图表-chromium\error-context.md
-]]>
-</failure>
+<testcase name="统计分析 › 应该显示数据图表" classname="statistics.spec.ts" time="3.637">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|statistics-统计分析-应该显示数据图表-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|statistics-统计分析-应该显示数据图表-chromium\video.webm]]
-
-[[ATTACHMENT|statistics-统计分析-应该显示数据图表-chromium\error-context.md]]
+<![CDATA[图表数量: 1
 ]]>
 </system-out>
 </testcase>
-<testcase name="统计分析 › 图表应该正确渲染" classname="statistics.spec.ts" time="3.631">
-<failure message="statistics.spec.ts:48:3 图表应该正确渲染" type="FAILURE">
-<![CDATA[  [chromium] › statistics.spec.ts:48:3 › 统计分析 › 图表应该正确渲染 ───────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\StatisticsPage.ts:24
-
-      22 |   async isLoaded() {
-      23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      25 |   }
-      26 |
-      27 |   /**
-        at StatisticsPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\StatisticsPage.ts:24:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\statistics.spec.ts:49:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-图表应该正确渲染-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-图表应该正确渲染-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\statistics-统计分析-图表应该正确渲染-chromium\error-context.md
-]]>
-</failure>
+<testcase name="统计分析 › 图表应该正确渲染" classname="statistics.spec.ts" time="4.807">
 <system-out>
-<![CDATA[
-[[ATTACHMENT|statistics-统计分析-图表应该正确渲染-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|statistics-统计分析-图表应该正确渲染-chromium\video.webm]]
-
-[[ATTACHMENT|statistics-统计分析-图表应该正确渲染-chromium\error-context.md]]
+<![CDATA[图表尺寸: 1136x400
 ]]>
 </system-out>
 </testcase>
-<testcase name="统计分析 › 应该能切换时间范围" classname="statistics.spec.ts" time="3.441">
-<failure message="statistics.spec.ts:71:3 应该能切换时间范围" type="FAILURE">
-<![CDATA[  [chromium] › statistics.spec.ts:71:3 › 统计分析 › 应该能切换时间范围 ──────────────────────────────────────────
-
-    ReferenceError: expect is not defined
-
-       at ..\pages\StatisticsPage.ts:24
-
-      22 |   async isLoaded() {
-      23 |     await this.page.waitForLoadState('networkidle')
-    > 24 |     await expect(this.pageTitle).toBeVisible()
-         |     ^
-      25 |   }
-      26 |
-      27 |   /**
-        at StatisticsPage.isLoaded (C:\Users\tuzhe\runspace\eatly\tests\pages\StatisticsPage.ts:24:5)
-        at C:\Users\tuzhe\runspace\eatly\tests\e2e\statistics.spec.ts:72:5
-
-    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-应该能切换时间范围-chromium\test-failed-1.png
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
-    ..\..\test-results\statistics-统计分析-应该能切换时间范围-chromium\video.webm
-    ────────────────────────────────────────────────────────────────────────────────────────────────
-
-    Error Context: ..\..\test-results\statistics-统计分析-应该能切换时间范围-chromium\error-context.md
-]]>
-</failure>
-<system-out>
-<![CDATA[
-[[ATTACHMENT|statistics-统计分析-应该能切换时间范围-chromium\test-failed-1.png]]
-
-[[ATTACHMENT|statistics-统计分析-应该能切换时间范围-chromium\video.webm]]
-
-[[ATTACHMENT|statistics-统计分析-应该能切换时间范围-chromium\error-context.md]]
-]]>
-</system-out>
+<testcase name="统计分析 › 应该能切换时间范围" classname="statistics.spec.ts" time="1.441">
 </testcase>
 </testsuite>
 </testsuites>

@@ -32,19 +32,17 @@
                 - img [ref=e32]
               - button [ref=e33] [cursor=pointer]:
                 - img [ref=e36]
-        - button "loading 生成推荐" [ref=e39] [cursor=pointer]:
-          - img "loading" [ref=e40]:
-            - img [ref=e43]
-          - generic [ref=e46]: 生成推荐
-      - generic [ref=e48]:
-        - generic [ref=e49]: 2026年02月03日
-        - generic [ref=e50]:
-          - generic [ref=e52]: "A组:"
-          - generic [ref=e54]: "B组:"
-          - generic [ref=e56]: "C组:"
-        - generic [ref=e57]:
-          - button "编辑" [ref=e58] [cursor=pointer]:
-            - generic [ref=e59]: 编辑
-          - button "确认" [ref=e60] [cursor=pointer]:
-            - generic [ref=e61]: 确认
+        - button "生成推荐" [ref=e39] [cursor=pointer]:
+          - generic [ref=e40]: 生成推荐
+      - generic [ref=e42]:
+        - generic [ref=e43]: 2026年02月03日
+        - generic [ref=e44]:
+          - generic [ref=e46]: "A组:"
+          - generic [ref=e48]: "B组:"
+          - generic [ref=e50]: "C组:"
+        - generic [ref=e51]:
+          - button "编辑" [ref=e52] [cursor=pointer]:
+            - generic [ref=e53]: 编辑
+          - button "确认" [ref=e54] [cursor=pointer]:
+            - generic [ref=e55]: 确认
 ```

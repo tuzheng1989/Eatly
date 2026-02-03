@@ -19,5 +19,26 @@
         - /url: /schemes
       - link "设置" [ref=e14] [cursor=pointer]:
         - /url: /settings
-  - main [ref=e15]
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - generic [ref=e17]:
+        - heading "欢迎使用 Eatly 🥗" [level=1] [ref=e18]
+        - paragraph [ref=e19]: 每日饮食推荐记录，让饮食更健康、更多样
+      - generic [ref=e20]:
+        - generic [ref=e21] [cursor=pointer]:
+          - generic [ref=e22]: 🎲
+          - heading "获取推荐" [level=3] [ref=e23]
+          - paragraph [ref=e24]: 随机生成今日饮食推荐
+        - generic [ref=e25] [cursor=pointer]:
+          - generic [ref=e26]: 📝
+          - heading "记录饮食" [level=3] [ref=e27]
+          - paragraph [ref=e28]: 记录今天吃的菜品
+        - generic [ref=e29] [cursor=pointer]:
+          - generic [ref=e30]: 📅
+          - heading "历史记录" [level=3] [ref=e31]
+          - paragraph [ref=e32]: 查看过去的饮食记录
+        - generic [ref=e33] [cursor=pointer]:
+          - generic [ref=e34]: 📊
+          - heading "统计分析" [level=3] [ref=e35]
+          - paragraph [ref=e36]: 查看饮食习惯分析
 ```

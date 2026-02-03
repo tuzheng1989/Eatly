@@ -27,7 +27,7 @@ export class RecommendPage extends BasePage {
    */
   async isLoaded() {
     await this.page.waitForLoadState('networkidle')
-    await expect(this.pageTitle).toBeVisible()
+    await this.pageTitle.waitFor()
   }
 
   /**
