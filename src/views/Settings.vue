@@ -132,9 +132,10 @@ async function handleLanguageChange() {
   try {
     await settingsService.updateSettings({ language: settings.value.language })
     showSaveStatus('success', settings.value.language === 'zh' ? '语言已切换为中文' : 'Language switched to English')
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('保存语言失败:', error)
-    showSaveStatus('error', error.message || '保存语言失败')
+    const message = error instanceof Error ? error.message : '保存语言失败'
+    showSaveStatus('error', message)
   }
 }
 
