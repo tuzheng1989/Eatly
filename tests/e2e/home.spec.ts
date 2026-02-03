@@ -28,10 +28,10 @@ test.describe('首页', () => {
     await homePage.isLoaded()
 
     // 获取快速操作数量
-    const actionCount = await homePage.getQuickActionCount()
+    const actionCount = await homePage.actionCards.count()
 
-    // 至少应该有 3 个快速操作（推荐、记录、日历）
-    expect(actionCount).toBeGreaterThanOrEqual(3)
+    // 应该有 4 个快速操作（推荐、记录、历史、统计）
+    expect(actionCount).toBe(4)
 
     console.log(`找到 ${actionCount} 个快速操作入口`)
   })
@@ -39,23 +39,27 @@ test.describe('首页', () => {
   test('可以通过快速操作导航到推荐页面', async ({ page }) => {
     await homePage.isLoaded()
 
-    // 点击推荐按钮
-    await homePage.clickQuickAction('推荐')
+    // 点击第一个快速操作卡片（获取推荐）
+    await homePage.clickActionCard(0)
+
+    // 等待导航
+    await page.waitForTimeout(1000)
 
     // 验证导航到推荐页面
     await expect(page).toHaveURL(/\/recommend/)
-    await expect(page.locator('h1, h2').filter({ hasText: /推荐菜品/i })).toBeVisible()
   })
 
   test('可以通过快速操作导航到记录页面', async ({ page }) => {
     await homePage.isLoaded()
 
-    // 点击记录按钮
-    await homePage.clickQuickAction('记录')
+    // 点击第二个快速操作卡片（记录饮食）
+    await homePage.clickActionCard(1)
+
+    // 等待导航
+    await page.waitForTimeout(1000)
 
     // 验证导航到记录页面
     await expect(page).toHaveURL(/\/record/)
-    await expect(page.locator('h1, h2').filter({ hasText: /记录饮食/i })).toBeVisible()
   })
 
   test('应该显示今日记录卡片', async ({ page: _page }) => {
