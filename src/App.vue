@@ -1,21 +1,20 @@
 <template>
   <n-config-provider :theme-overrides="themeOverrides">
-    <n-message-provider>
+    <GlobalMessageProvider>
       <n-loading-bar-provider>
         <AppHeader />
         <main class="main-content">
           <router-view />
         </main>
       </n-loading-bar-provider>
-    </n-message-provider>
+    </GlobalMessageProvider>
   </n-config-provider>
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { useMessage } from 'naive-ui'
-import { NConfigProvider, NMessageProvider, NLoadingBarProvider } from 'naive-ui'
+import { NConfigProvider, NLoadingBarProvider } from 'naive-ui'
 import AppHeader from '@/components/common/AppHeader.vue'
+import GlobalMessageProvider from '@/components/common/GlobalMessageProvider.vue'
 
 const themeOverrides = {
   common: {
@@ -24,21 +23,6 @@ const themeOverrides = {
     primaryColorPressed: '#2c8a60'
   }
 }
-
-// Expose message API for global use after component is mounted
-// This ensures NMessageProvider is available when useMessage is called
-onMounted(() => {
-  try {
-    const message = useMessage()
-    Object.defineProperty(window, '$message', {
-      get() {
-        return message
-      }
-    })
-  } catch (error) {
-    console.warn('Failed to initialize message API:', error)
-  }
-})
 </script>
 
 <style>
