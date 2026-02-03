@@ -1,0 +1,70 @@
+# Page snapshot
+
+```yaml
+- generic [ref=e3]:
+  - banner [ref=e4]:
+    - heading "🥗 Eatly" [level=1] [ref=e6]
+    - navigation [ref=e7]:
+      - link "首页" [ref=e8] [cursor=pointer]:
+        - /url: /
+      - link "推荐" [ref=e9] [cursor=pointer]:
+        - /url: /recommend
+      - link "记录" [ref=e10] [cursor=pointer]:
+        - /url: /record
+      - link "日历" [ref=e11] [cursor=pointer]:
+        - /url: /calendar
+      - link "统计" [ref=e12] [cursor=pointer]:
+        - /url: /statistics
+      - link "方案" [ref=e13] [cursor=pointer]:
+        - /url: /schemes
+      - link "设置" [ref=e14] [cursor=pointer]:
+        - /url: /settings
+  - main [ref=e15]:
+    - generic [ref=e16]:
+      - heading "统计分析 📊" [level=1] [ref=e17]
+      - generic [ref=e18]:
+        - generic:
+          - generic:
+            - generic:
+              - generic:
+                - heading "概览":
+                  - heading "概览"
+                - generic:
+                  - generic: 总记录天数
+                  - generic: "0"
+                - generic:
+                  - generic: A组菜品
+                  - generic: "0"
+                - generic:
+                  - generic: B组菜品
+                  - generic: "0"
+                - generic:
+                  - generic: C组菜品
+                  - generic: "0"
+            - generic:
+              - generic:
+                - heading "热门菜品":
+                  - heading "热门菜品"
+                - generic:
+                  - generic:
+                    - generic:
+                      - img
+                  - generic: 暂无数据
+            - generic:
+              - generic:
+                - generic:
+                  - heading "饮食摄入趋势" [level=3]
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic "周":
+                          - generic: 周
+                        - img "loading":
+                          - generic:
+                            - generic:
+                              - generic:
+                                - generic:
+                                  - img
+        - img "loading" [ref=e20]:
+          - img [ref=e23]
+```

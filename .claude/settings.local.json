@@ -26,7 +26,8 @@
       "Bash(curl:*)",
       "Bash(code:*)",
       "Bash(reg query:*)",
-      "Bash(node:*)"
+      "Bash(node:*)",
+      "Bash(npx playwright:*)"
     ]
   },
   "hooks": {

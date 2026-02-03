@@ -21,7 +21,7 @@ export class HomePage extends BasePage {
    */
   async isLoaded() {
     await this.page.waitForLoadState('networkidle')
-    await expect(this.welcomeTitle).toBeVisible()
+    await this.welcomeTitle.waitFor()
   }
 
   /**
