@@ -172,6 +172,16 @@ function applyTheme(theme: 'light' | 'dark' | 'auto') {
 
 // 初始化
 onMounted(async () => {
+  // Initialize message proxy
+  const { useMessage } = await import('naive-ui')
+  const msg = useMessage()
+  Object.defineProperty(window, '$message', {
+    get() {
+      return msg
+    }
+  })
+  message = window.$message
+
   await loadSettings()
   applyTheme(settings.value.theme)
 })
