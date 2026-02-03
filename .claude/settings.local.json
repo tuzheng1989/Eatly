@@ -17,7 +17,11 @@
       "Bash(netstat:*)",
       "mcp__serena__read_memory",
       "Bash(tasklist:*)",
-      "Bash(ps:*)"
+      "Bash(ps:*)",
+      "Bash(wmic:*)",
+      "Bash(ls:*)",
+      "Bash(lsof:*)",
+      "Bash(findstr:*)"
     ]
   },
   "hooks": {
