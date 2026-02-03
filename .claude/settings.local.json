@@ -27,7 +27,9 @@
       "Bash(code:*)",
       "Bash(reg query:*)",
       "Bash(node:*)",
-      "Bash(npx playwright:*)"
+      "Bash(npx playwright:*)",
+      "Bash(docker-compose:*)",
+      "Bash(docker inspect:*)"
     ]
   },
   "hooks": {
