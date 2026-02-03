@@ -65,10 +65,7 @@ test.describe('首页', () => {
   test('应该显示今日记录卡片', async ({ page: _page }) => {
     await homePage.isLoaded()
 
-    // 今日记录卡片应该可见（可能为空）
-    const todayCard = homePage.todayRecordCard
-    if (await todayCard.count() > 0) {
-      await expect(todayCard).toBeVisible()
-    }
+    // 快速操作卡片应该可见
+    await expect(homePage.actionCards.first()).toBeVisible()
   })
 })
