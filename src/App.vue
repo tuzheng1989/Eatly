@@ -28,12 +28,16 @@ const themeOverrides = {
 // Expose message API for global use after component is mounted
 // This ensures NMessageProvider is available when useMessage is called
 onMounted(() => {
-  const message = useMessage()
-  Object.defineProperty(window, '$message', {
-    get() {
-      return message
-    }
-  })
+  try {
+    const message = useMessage()
+    Object.defineProperty(window, '$message', {
+      get() {
+        return message
+      }
+    })
+  } catch (error) {
+    console.warn('Failed to initialize message API:', error)
+  }
 })
 </script>
 
