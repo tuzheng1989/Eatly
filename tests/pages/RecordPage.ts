@@ -22,7 +22,7 @@ export class RecordPage extends BasePage {
     this.breakfastSection = page.locator('[data-testid="breakfast"], .breakfast')
     this.lunchSection = page.locator('[data-testid="lunch"], .lunch')
     this.dinnerSection = page.locator('[data-testid="dinner"], .dinner')
-    this.addButton = page.locator('button').filter({ hasText: /添加|+/i })
+    this.addButton = page.locator('button').filter({ hasText: /添加|\+/i })
     this.saveButton = page.locator('button').filter({ hasText: /保存|提交/i })
   }
 
