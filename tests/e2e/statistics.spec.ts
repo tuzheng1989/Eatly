@@ -28,14 +28,18 @@ test.describe('统计分析', () => {
     // 等待页面内容加载
     await page.waitForTimeout(1000)
 
-    // 使用 getByRole 和文本过滤来查找标题
-    const overviewHeading = page.getByRole('heading', { name: '概览' })
-    await expect(overviewHeading).toBeVisible()
+    // 验证统计页面有主要内容区域
+    const statisticsContainer = page.locator('.statistics')
+    await expect(statisticsContainer).toBeVisible()
 
-    const topDishesHeading = page.getByRole('heading', { name: '热门菜品' })
-    await expect(topDishesHeading).toBeVisible()
+    // 验证页面包含统计相关的文本内容
+    const pageContent = await statisticsContainer.textContent()
+    expect(pageContent).toContain('总记录天数')
+    expect(pageContent).toContain('A组菜品')
+    expect(pageContent).toContain('B组菜品')
+    expect(pageContent).toContain('C组菜品')
 
-    console.log('统计卡片验证通过：概览卡片 + 热门菜品卡片')
+    console.log('统计卡片验证通过')
   })
 
   test('应该显示数据图表', async ({ page: _page }) => {
