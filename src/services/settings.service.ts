@@ -38,12 +38,16 @@ class SettingsService {
     })
   }
 
-  private async request<T>(config: any): Promise<T> {
+  private async request<T>(config: import('axios').AxiosRequestConfig): Promise<T> {
     try {
       const response = await this.api.request(config)
       return response.data.data
-    } catch (error: any) {
-      const message = error.response?.data?.error || error.message || '请求失败'
+    } catch (error: unknown) {
+      const message = error instanceof Error && 'response' in error && (error as any).response?.data?.error
+        ? (error as any).response.data.error
+        : error instanceof Error
+        ? error.message
+        : '请求失败'
       throw new Error(message)
     }
   }
