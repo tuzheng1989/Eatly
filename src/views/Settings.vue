@@ -103,8 +103,10 @@ const settings = ref<AppSettings>({
 
 const loading = ref(false)
 
-// Message proxy (will be set in onMounted)
-let message: any = null
+// Message helper
+function showMessage(content: string, type: 'success' | 'error' | 'info' = 'info') {
+  window.$message?.[type](content)
+}
 
 // 存储信息
 const storageMode = computed(() => import.meta.env.VITE_STORAGE_MODE || 'local')
