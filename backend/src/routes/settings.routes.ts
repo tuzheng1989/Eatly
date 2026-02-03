@@ -34,7 +34,7 @@ router.put('/', async (req, res) => {
     const { theme, language, recommend_count, data } = req.body
 
     const updates: string[] = []
-    const values: any[] = []
+    const values: (string | number)[] = []
     let paramIndex = 1
 
     if (theme !== undefined) {
