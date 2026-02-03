@@ -63,7 +63,7 @@ router.put('/:id', async (req, res) => {
     const { name, description, pools } = req.body
 
     const updates: string[] = []
-    const values: any[] = []
+    const values: (string | number)[] = []
     let paramIndex = 1
 
     if (name !== undefined) {
