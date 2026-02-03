@@ -17,17 +17,19 @@ CREATE INDEX IF NOT EXISTS idx_schemes_created_at ON schemes(created_at);
 -- 饮食记录表
 CREATE TABLE IF NOT EXISTS records (
   id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  date DATE NOT NULL UNIQUE,
-  breakfast JSONB DEFAULT '[]'::jsonb,
-  lunch JSONB DEFAULT '[]'::jsonb,
-  dinner JSONB DEFAULT '[]'::jsonb,
-  snack JSONB DEFAULT '[]'::jsonb,
+  date DATE NOT NULL,
+  scheme_id UUID,
+  scheme_name VARCHAR(255),
+  meals JSONB NOT NULL DEFAULT '{"A": "", "B": "", "C": ""}'::jsonb,
+  note TEXT,
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  UNIQUE(date, scheme_id)
 );
 
 -- 创建索引
 CREATE INDEX IF NOT EXISTS idx_records_date ON records(date);
+CREATE INDEX IF NOT EXISTS idx_records_scheme_id ON records(scheme_id);
 CREATE INDEX IF NOT EXISTS idx_records_created_at ON records(created_at);
 
 -- 推荐记录表
