@@ -157,4 +157,130 @@ npm run dev -- --mode test
 
 ---
 
-**下次继续开发时**: 优先实施数据迁移工具和云服务器部署
+## 当前工作进行时
+
+### 数据迁移工具实现 (进行中)
+
+**任务**: 创建 IndexedDB 到 PostgreSQL 的数据迁移工具
+
+**已分析的数据结构差异**:
+
+#### Scheme 数据结构对比
+
+**前端 (IndexedDB)**:
+```typescript
+interface Scheme {
+  id: string
+  name: string
+  description?: string
+  pools: PoolGroup           // { A: string[], B: string[], C: string[] }
+  originalPools: PoolGroup   // 用于重置池子
+  createdAt: string          // ISO 8601 格式
+  updatedAt: string
+  isDefault?: boolean
+}
+```
+
+**后端 (PostgreSQL)**:
+```typescript
+interface SchemeModel {
+  id: string                 // UUID
+  name: string
+  description: string
+  created: string            // YYYY-MM-DD 格式
+  modified: string           // YYYY-MM-DD 格式
+  pools: JSONB               // 数组格式 [A, B, C]
+  settings: JSONB            // { dailyCount: 3, allowRepeat: false }
+}
+```
+
+**关键差异**:
+1. ❌ 后端缺少 `originalPools` 字段
+2. ❌ 后端使用 `created`/`modified` 而非 `createdAt`/`updatedAt`
+3. ❌ 后端 `pools` 结构为数组而非对象
+4. ❌ 后端有额外的 `settings` 字段
+
+#### Record 数据结构对比
+
+**前端 (IndexedDB)**:
+```typescript
+interface Record {
+  id: string
+  date: string               // YYYY-MM-DD
+  schemeId: string
+  schemeName: string         // ⚠️ 后端无此字段
+  meals: MealGroup           // { A: string, B: string, C: string }
+  note?: string              // ⚠️ 后端无此字段
+  createdAt: string
+  updatedAt: string
+}
+```
+
+**后端 (PostgreSQL)**:
+```typescript
+interface RecordModel {
+  id: string
+  date: string
+  schemeId: string
+  meals: JSONB               // 默认值 []
+  createdAt: string
+  updatedAt: string
+}
+```
+
+**关键差异**:
+1. ❌ 前端有 `schemeName` 字段，后端无
+2. ❌ 前端有 `note` 字段，后端无
+3. ❌ 后端 `meals` 默认为空数组
+
+#### Settings 数据结构对比
+
+**前端 (IndexedDB)**:
+```typescript
+interface Settings {
+  defaultRecommendCount: number
+  currentSchemeId: string
+  theme: 'light' | 'dark' | 'auto'
+  language: 'zh-CN' | 'en-US'    // ⚠️ 代码值不同
+  dateFormat: 'YYYY-MM-DD' | 'MM/DD/YYYY'
+  chartGranularity: 'day' | 'week' | 'month'
+}
+```
+
+**后端 (PostgreSQL)**:
+```typescript
+interface SettingsModel {
+  id: string                      // 固定值 'app'
+  theme: 'light' | 'dark' | 'auto'
+  language: 'zh' | 'en'          // ⚠️ 简化值
+  // ⚠️ 缺少 defaultRecommendCount, currentSchemeId, dateFormat, chartGranularity
+}
+```
+
+**关键差异**:
+1. ❌ 语言代码格式不同 (`zh-CN` vs `zh`)
+2. ❌ 后端缺少多个前端设置字段
+
+**下一步行动**:
+1. 统一前后端数据结构定义
+2. 创建数据转换映射逻辑
+3. 实现迁移 API 端点
+4. 创建前端导出/导入功能
+5. 添加迁移进度报告和错误处理
+
+**相关文件**:
+- [src/types/scheme.ts](src/types/scheme.ts)
+- [src/types/record.ts](src/types/record.ts)
+- [src/types/settings.ts](src/types/settings.ts)
+- [eatly-backend/src/models/Scheme.model.ts](../eatly-backend/src/models/Scheme.model.ts)
+- [eatly-backend/src/models/Record.model.ts](../eatly-backend/src/models/Record.model.ts)
+- [eatly-backend/src/models/Settings.model.ts](../eatly-backend/src/models/Settings.model.ts)
+- [src/services/storage/storage.service.ts](src/services/storage/storage.service.ts) - 已有 `exportData()` 和 `importData()` 方法
+
+---
+
+**下次继续开发时**:
+1. 完成数据结构差异分析
+2. 创建数据转换映射层
+3. 实现迁移工具 API
+4. 测试数据迁移流程
