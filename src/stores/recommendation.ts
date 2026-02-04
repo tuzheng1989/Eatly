@@ -14,6 +14,7 @@ export const useRecommendationStore = defineStore('recommendation', () => {
   /**
    * 计算剩余池子（方案池子 - 已记录菜品）
    * 只移除属于当前方案的菜品
+   * 排除"其他"菜品（不参与池子维护）
    */
   function calculateRemainingPools(
     originalPools: PoolGroup,
@@ -29,12 +30,17 @@ export const useRecommendationStore = defineStore('recommendation', () => {
     const currentSchemeId = schemeStore.currentSchemeId
 
     // 只移除属于当前方案的记录中的菜品
+    // 排除"其他"菜品（不参与池子维护）
     records
       .filter(record => record.schemeId === currentSchemeId)
       .forEach(record => {
         const poolTypes: PoolType[] = ['A', 'B', 'C']
         poolTypes.forEach(type => {
           const dish = record.meals[type]
+          // 跳过"其他"菜品
+          if (dish === '其他' || dish.startsWith('其他:')) {
+            return
+          }
           const pool = remainingPools[type]
           const index = pool.indexOf(dish)
           if (index !== -1) {
