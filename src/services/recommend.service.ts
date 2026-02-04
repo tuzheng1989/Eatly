@@ -9,6 +9,7 @@ function randomItem<T>(array: T[]): T {
 class RecommendService {
   async generate(
     pools: PoolGroup,
+    originalPools: PoolGroup,
     count: number,
     startDate: string = dayjs().format('YYYY-MM-DD')
   ): Promise<Recommendation[]> {
@@ -18,10 +19,11 @@ class RecommendService {
     for (let i = 0; i < count; i++) {
       const date = dayjs(startDate).add(i, 'day').format('YYYY-MM-DD')
 
-      // 检查池子是否为空，为空则重置
-      ;(['A', 'B', 'C'] as PoolType[]).forEach(type => {
+      // 检查池子是否为空，为空则从原始池子重新初始化
+      const poolTypes: PoolType[] = ['A', 'B', 'C']
+      poolTypes.forEach(type => {
         if (workingPools[type].length === 0) {
-          workingPools[type] = [...pools[type]]
+          workingPools[type] = [...originalPools[type]]
         }
       })
 
