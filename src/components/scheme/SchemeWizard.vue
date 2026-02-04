@@ -13,18 +13,18 @@
 
     <template #footer>
       <n-space justify="space-between">
-        <n-button v-if="currentStep > 1" @click="handlePrevious" :disabled="loading">
+        <n-button v-if="currentStep > 1" :disabled="loading" @click="handlePrevious">
           上一步
         </n-button>
         <div></div>
         <n-space>
-          <n-button @click="handleCancel" :disabled="loading">
+          <n-button :disabled="loading" @click="handleCancel">
             取消
           </n-button>
-          <n-button v-if="currentStep < totalSteps" type="primary" @click="handleNext" :loading="loading">
+          <n-button v-if="currentStep < totalSteps" type="primary" :loading="loading" @click="handleNext">
             下一步
           </n-button>
-          <n-button v-else type="primary" @click="handleFinish" :loading="loading">
+          <n-button v-else type="primary" :loading="loading" @click="handleFinish">
             完成创建
           </n-button>
         </n-space>

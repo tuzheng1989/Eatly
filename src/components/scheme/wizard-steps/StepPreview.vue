@@ -39,10 +39,22 @@
 </template>
 
 <script setup lang="ts">
-import { inject, computed } from 'vue'
+import { inject, computed, ref } from 'vue'
 import { NSpace, NCard, NDescriptions, NDescriptionsItem, NTag, NAlert, NStatistic } from 'naive-ui'
+import type { Scheme } from '@/types'
 
-const wizardData = inject<Ref<any>>('wizardData')!
+interface WizardData {
+  name: string
+  description: string
+  configMode: 'template' | 'custom'
+  pools: {
+    A: string[]
+    B: string[]
+    C: string[]
+  }
+}
+
+const wizardData = inject<Ref<WizardData>>('wizardData')!
 
 const totalDishes = computed(() => {
   return wizardData.value.pools.A.length + wizardData.value.pools.B.length + wizardData.value.pools.C.length

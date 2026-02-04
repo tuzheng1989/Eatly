@@ -18,19 +18,19 @@
           <n-select
             :value="dish"
             :options="poolOptions[group as keyof typeof poolOptions]"
-            @update:value="(value: string) => handleMealChange(group as keyof typeof editableMeals, value)"
             filterable
             size="small"
             style="flex: 1"
+            @update:value="(value: string) => handleMealChange(group as keyof typeof editableMeals, value)"
           />
           <n-input
             v-if="dish === '其他'"
             :value="customMeals[group as keyof typeof customMeals]"
-            @update:value="(value: string) => customMeals[group as keyof typeof customMeals] = value"
             placeholder="请输入自定义菜品名称"
             size="small"
             clearable
             style="flex: 1; margin-top: 0.5rem"
+            @update:value="(value: string) => customMeals[group as keyof typeof customMeals] = value"
           />
         </div>
       </div>
