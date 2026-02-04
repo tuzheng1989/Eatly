@@ -164,4 +164,15 @@ onMounted(async () => {
   display: flex;
   gap: 0.5rem;
 }
+
+.pool-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.pool-details div {
+  line-height: 1.6;
+}
 </style>
