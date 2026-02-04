@@ -179,14 +179,20 @@ function handleConfirm() {
 
 .meal-edit-item {
   display: flex;
+  flex-direction: column;
   gap: 0.5rem;
-  align-items: center;
+}
+
+.meal-edit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  flex: 1;
 }
 
 .group-label {
   font-weight: bold;
   color: var(--color-primary);
-  min-width: 50px;
 }
 
 .dish-name {
