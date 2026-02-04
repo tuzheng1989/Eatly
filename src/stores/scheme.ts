@@ -22,6 +22,42 @@ export const useSchemeStore = defineStore('scheme', () => {
     C: currentPools.value.C.length
   }))
 
+  /**
+   * 初始化方案管理
+   * 1. 加载所有方案
+   * 2. 从 localStorage 恢复当前方案ID
+   * 3. 如果没有缓存，使用默认方案或第一个方案
+   */
+  async function initializeScheme() {
+    await loadSchemes()
+
+    // 1. 尝试从 localStorage 恢复当前方案ID
+    const cachedSchemeId = localStorage.getItem('currentSchemeId')
+
+    if (cachedSchemeId) {
+      // 验证缓存的方案ID是否仍然有效
+      const schemeExists = schemes.value.some(s => s.id === cachedSchemeId)
+      if (schemeExists) {
+        currentSchemeId.value = cachedSchemeId
+        loadCurrentPools()
+        return
+      }
+    }
+
+    // 2. 没有缓存或缓存无效，查找默认方案
+    const defaultScheme = schemes.value.find(s => s.isDefault)
+
+    if (defaultScheme) {
+      setCurrentScheme(defaultScheme.id)
+      return
+    }
+
+    // 3. 没有默认方案，使用第一个可用方案
+    if (schemes.value.length > 0) {
+      setCurrentScheme(schemes.value[0].id)
+    }
+  }
+
   async function loadSchemes() {
     schemes.value = await schemeService.getAll()
   }
