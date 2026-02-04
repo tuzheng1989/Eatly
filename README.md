@@ -9,9 +9,9 @@
 [![Vue Version](https://img.shields.io/badge/Vue-3.5-42b883)](https://vuejs.org)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-3178c6)](https://www.typescriptlang.org/)
 
-一个帮助个人规划每日饮食的全栈 Web 应用，通过 ABC 三组菜品池的随机推荐机制，确保饮食多样性和营养均衡。
+一个全栈饮食规划应用，通过 ABC 三组菜品池的智能推荐机制，帮助您实现饮食多样化和营养均衡。
 
-[快速开始](#-快速开始) · [功能特性](#-功能特性) · [部署指南](#-部署指南) · [贡献指南](#-贡献指南)
+[快速开始](#-快速开始) · [功能特性](#-功能特性) · [部署指南](#-部署指南) · [开发文档](#-开发文档)
 
 </div>
 
