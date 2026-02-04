@@ -171,8 +171,10 @@ const poolOptions = computed(() => {
     return { A: [], B: [], C: [] }
   }
 
-  const createOptions = (items: string[]) =>
-    items.map(item => ({ label: item, value: item }))
+  const createOptions = (items: string[]) => [
+    ...items.map(item => ({ label: item, value: item })),
+    { label: '其他', value: '其他' }
+  ]
 
   return {
     A: createOptions(currentScheme.value.pools.A),
@@ -180,6 +182,20 @@ const poolOptions = computed(() => {
     C: createOptions(currentScheme.value.pools.C)
   }
 })
+
+// 自定义菜品名称（当选择"其他"时使用）
+const customMeals = ref({
+  A: '',
+  B: '',
+  C: ''
+})
+
+// 处理菜品选择变化
+function handleMealChange(group: keyof MealGroup) {
+  if (formValue.value.meals[group] === '其他') {
+    customMeals.value[group] = ''
+  }
+}
 
 const formValue = ref({
   date: dayjs().format('YYYY-MM-DD'),
