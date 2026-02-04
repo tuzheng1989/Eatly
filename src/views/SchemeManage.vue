@@ -72,9 +72,6 @@ import {
   NButton,
   NTag,
   NStatistic,
-  NForm,
-  NFormItem,
-  NInput,
   NEmpty,
   NCollapse,
   NCollapseItem
@@ -82,14 +79,14 @@ import {
 import { useSchemeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import { DEFAULT_SCHEME } from '@/constants/default-scheme'
+import SchemeWizard from '@/components/scheme/SchemeWizard.vue'
+import type { Scheme } from '@/types'
 
 const schemeStore = useSchemeStore()
 const { schemes, currentSchemeId, currentScheme } = storeToRefs(schemeStore)
 
-const formValue = ref({
-  name: '',
-  description: ''
-})
+// 向导显示状态
+const showWizard = ref(false)
 
 async function handleSelect(id: string) {
   schemeStore.setCurrentScheme(id)
@@ -101,21 +98,11 @@ async function handleDelete(id: string) {
   window.$message?.success('方案已删除')
 }
 
-async function handleCreate() {
-  if (!formValue.value.name) {
-    window.$message?.error('请输入方案名称')
-    return
-  }
-
-  await schemeStore.createScheme({
-    ...DEFAULT_SCHEME,
-    name: formValue.value.name,
-    description: formValue.value.description
-  })
-
-  window.$message?.success('方案已创建')
-  formValue.value.name = ''
-  formValue.value.description = ''
+// 向导创建成功处理
+async function handleSchemeCreated(scheme: Scheme) {
+  // 自动切换到新创建的方案
+  schemeStore.setCurrentScheme(scheme.id)
+  window.$message?.success('方案已创建并自动切换')
 }
 
 onMounted(async () => {
