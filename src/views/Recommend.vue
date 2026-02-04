@@ -23,7 +23,6 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted } from 'vue'
 import { NEmpty } from 'naive-ui'
 import RecommendForm from '@/components/recommendation/RecommendForm.vue'
 import RecommendItem from '@/components/recommendation/RecommendItem.vue'
