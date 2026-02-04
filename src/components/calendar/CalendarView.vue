@@ -22,7 +22,11 @@
       <div
         v-for="day in calendarDays"
         :key="day.date.getTime()"
-        :class="['day-cell', { 'has-record': day.hasRecord, 'other-month': !day.isCurrentMonth }]"
+        :class="['day-cell', {
+          'has-record': day.hasRecord,
+          'other-month': !day.isCurrentMonth,
+          'is-today': day.isToday
+        }]"
         @click="handleDateClick(day.date)"
       >
         {{ day.date.getDate() }}
