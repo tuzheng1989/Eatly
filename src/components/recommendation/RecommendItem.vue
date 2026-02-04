@@ -55,9 +55,9 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue'
-import { NButton, NTag, NSelect } from 'naive-ui'
+import { NButton, NTag, NSelect, NInput } from 'naive-ui'
 import type { Recommendation, MealGroup, PoolGroup, PoolType } from '@/types'
-import { useRecommendationStore } from '@/stores'
+import { useRecommendationStore, useSchemeStore } from '@/stores'
 import dayjs from 'dayjs'
 
 const props = defineProps<{
@@ -71,18 +71,27 @@ const emit = defineEmits<{
 }>()
 
 const recommendStore = useRecommendationStore()
+const schemeStore = useSchemeStore()
 
 // 编辑状态
 const isEditing = ref(false)
 const editableMeals = ref<MealGroup>({ A: '', B: '', C: '' })
 
+// 自定义菜品名称（当选择"其他"时使用）
+const customMeals = ref<MealGroup>({ A: '', B: '', C: '' })
+
 // 池子选项（从剩余池子获取）
 const poolOptions = computed(() => {
   const pools = recommendStore.remainingPools
+  const createOptions = (items: string[]) => [
+    ...items.map(item => ({ label: item, value: item })),
+    { label: '其他', value: '其他' }
+  ]
+
   return {
-    A: pools.A.map(dish => ({ label: dish, value: dish })),
-    B: pools.B.map(dish => ({ label: dish, value: dish })),
-    C: pools.C.map(dish => ({ label: dish, value: dish }))
+    A: createOptions(pools.A),
+    B: createOptions(pools.B),
+    C: createOptions(pools.C)
   }
 })
 
@@ -92,16 +101,33 @@ function formatDate(date: string) {
 
 function startEdit() {
   editableMeals.value = { ...props.recommendation.meals }
+  customMeals.value = { A: '', B: '', C: '' }
   isEditing.value = true
 }
 
 function cancelEdit() {
   isEditing.value = false
+  customMeals.value = { A: '', B: '', C: '' }
+}
+
+function handleMealChange(group: keyof MealGroup, value: string) {
+  editableMeals.value[group] = value
+  if (value === '其他') {
+    customMeals.value[group] = ''
+  }
 }
 
 function saveEdit() {
-  emit('update', editableMeals.value)
+  // 处理"其他"菜品：使用自定义名称或默认为"其他"
+  const processedMeals: MealGroup = {
+    A: editableMeals.value.A === '其他' ? (customMeals.value.A || '其他') : editableMeals.value.A,
+    B: editableMeals.value.B === '其他' ? (customMeals.value.B || '其他') : editableMeals.value.B,
+    C: editableMeals.value.C === '其他' ? (customMeals.value.C || '其他') : editableMeals.value.C
+  }
+
+  emit('update', processedMeals)
   isEditing.value = false
+  customMeals.value = { A: '', B: '', C: '' }
 }
 
 function handleEdit() {
