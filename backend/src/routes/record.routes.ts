@@ -6,29 +6,25 @@ const router = Router()
 const success = <T,>(data: T) => ({ success: true, data })
 const error = (message: string) => ({ success: false, error: message })
 
-// 格式化日期为 YYYY-MM-DD
-function formatDate(date: Date | string): string {
-  const d = new Date(date)
-  const year = d.getFullYear()
-  const month = String(d.getMonth() + 1).padStart(2, '0')
-  const day = String(d.getDate()).padStart(2, '0')
-  return `${year}-${month}-${day}`
-}
-
-// 格式化记录数据，将 date 从 Date 对象转换为字符串
-function formatRecord(record: any): any {
-  return {
-    ...record,
-    date: formatDate(record.date)
-  }
-}
-
 // 获取所有记录
 router.get('/', async (req, res) => {
   try {
     const { start, end } = req.query
 
-    let query = 'SELECT * FROM records'
+    // 使用 TO_CHAR 确保日期格式正确，避免时区问题
+    // 使用 snake_case to camelCase 转换匹配前端类型
+    let query = `
+      SELECT
+        id,
+        TO_CHAR(date, 'YYYY-MM-DD') as date,
+        scheme_id as "schemeId",
+        scheme_name as "schemeName",
+        meals,
+        note,
+        created_at as "createdAt",
+        updated_at as "updatedAt"
+      FROM records
+    `
     const params: (string | number)[] = []
 
     if (start && end) {
@@ -39,8 +35,7 @@ router.get('/', async (req, res) => {
     query += ' ORDER BY date DESC'
 
     const result = await pool.query(query, params)
-    const formattedRecords = result.rows.map(formatRecord)
-    res.json(success(formattedRecords))
+    res.json(success(result.rows))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
     res.status(500).json(error(message))
