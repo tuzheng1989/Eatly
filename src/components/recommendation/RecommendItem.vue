@@ -108,31 +108,61 @@ function handleConfirm() {
   border: 1px solid var(--color-border);
   border-radius: 8px;
   margin-bottom: 1rem;
+  background: white;
 }
 
 .date {
   font-weight: bold;
   margin-bottom: 0.5rem;
+  color: var(--color-text);
 }
 
 .meals {
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
   margin-bottom: 1rem;
+}
+
+.meals-edit {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 4px;
 }
 
 .meal-item {
   display: flex;
   gap: 0.5rem;
+  align-items: center;
+}
+
+.meal-edit-item {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .group-label {
   font-weight: bold;
   color: var(--color-primary);
+  min-width: 50px;
+}
+
+.dish-name {
+  color: var(--color-text);
 }
 
 .actions {
   display: flex;
   gap: 0.5rem;
+}
+
+.confirmed {
+  display: flex;
+  justify-content: flex-end;
 }
 </style>
