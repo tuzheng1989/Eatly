@@ -100,6 +100,9 @@ export const useRecommendationStore = defineStore('recommendation', () => {
         adjustedStartDate
       )
 
+      // 5. 保存剩余池子供编辑使用
+      remainingPools.value = remainingPools
+
       recommendations.value = result
       return result
     } finally {
