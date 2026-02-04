@@ -14,6 +14,7 @@
         :recommendation="rec"
         @edit="handleEdit(rec)"
         @confirm="handleConfirm(rec)"
+        @update="handleUpdateMeals(rec, $event)"
       />
     </div>
 
