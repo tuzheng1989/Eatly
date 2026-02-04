@@ -3,6 +3,7 @@ import { createPinia } from 'pinia'
 import App from './App.vue'
 import router from './router'
 import { useAppStore } from './stores'
+import { useSchemeStore } from './stores'
 
 // Import UnoCSS
 import 'virtual:uno.css'
@@ -13,8 +14,16 @@ app.use(createPinia())
 app.use(router)
 
 // Initialize app
-const appStore = useAppStore()
-appStore.loadSettings()
+async function initializeApp() {
+  const appStore = useAppStore()
+  appStore.loadSettings()
 
-// Mount app
-const instance = app.mount('#app')
+  // Initialize scheme management
+  const schemeStore = useSchemeStore()
+  await schemeStore.initializeScheme()
+}
+
+// Mount app after initialization
+initializeApp().then(() => {
+  app.mount('#app')
+})
