@@ -80,9 +80,17 @@ const editableMeals = ref<MealGroup>({ A: '', B: '', C: '' })
 // 自定义菜品名称（当选择"其他"时使用）
 const customMeals = ref<MealGroup>({ A: '', B: '', C: '' })
 
-// 池子选项（从剩余池子获取）
+// 池子选项（从剩余池子获取，如果为空则使用全部池子）
 const poolOptions = computed(() => {
-  const pools = recommendStore.remainingPools
+  // 优先使用剩余池子，如果为空则回退到当前方案的全部池子
+  const pools = (
+    recommendStore.remainingPools.A.length > 0 ||
+    recommendStore.remainingPools.B.length > 0 ||
+    recommendStore.remainingPools.C.length > 0
+  )
+    ? recommendStore.remainingPools
+    : schemeStore.currentPools
+
   const createOptions = (items: string[]) => [
     ...items.map(item => ({ label: item, value: item })),
     { label: '其他', value: '其他' }
