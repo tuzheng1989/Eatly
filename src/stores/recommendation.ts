@@ -92,9 +92,9 @@ export const useRecommendationStore = defineStore('recommendation', () => {
       // 2. 获取所有已记录的记录，用于计算剩余池子
       const allRecords = await recordService.getAll()
 
-      // 3. 计算剩余池子（方案池子 - 已记录菜品）
+      // 3. 计算剩余池子（原始池子 - 已记录菜品）
       const calculatedRemainingPools = calculateRemainingPools(
-        schemeStore.currentPools,
+        schemeStore.currentScheme?.originalPools || schemeStore.currentPools,
         allRecords
       )
 
