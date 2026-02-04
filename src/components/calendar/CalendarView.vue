@@ -29,7 +29,12 @@
         }]"
         @click="handleDateClick(day.date)"
       >
-        {{ day.date.getDate() }}
+        <div class="day-number">{{ day.date.getDate() }}</div>
+        <div v-if="day.hasRecord && day.record" class="day-meals">
+          <div class="meal-item meal-a">{{ day.record.meals.A }}</div>
+          <div class="meal-item meal-b">{{ day.record.meals.B }}</div>
+          <div class="meal-item meal-c">{{ day.record.meals.C }}</div>
+        </div>
       </div>
     </div>
   </div>
