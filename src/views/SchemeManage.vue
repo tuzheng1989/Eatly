@@ -49,21 +49,16 @@
 
       <!-- 创建新方案 -->
       <n-card title="创建新方案">
-        <n-form :model="formValue" label-placement="left" label-width="80">
-          <n-form-item label="方案名称">
-            <n-input v-model:value="formValue.name" placeholder="输入方案名称" />
-          </n-form-item>
-          <n-form-item label="描述">
-            <n-input v-model:value="formValue.description" type="textarea" placeholder="可选描述" />
-          </n-form-item>
-          <n-form-item>
-            <n-button type="primary" @click="handleCreate">
-              创建方案
-            </n-button>
-          </n-form-item>
-        </n-form>
+        <n-space>
+          <n-button type="primary" @click="showWizard = true">
+            创建新方案
+          </n-button>
+        </n-space>
       </n-card>
     </n-space>
+
+    <!-- 向导组件 -->
+    <SchemeWizard v-model:show="showWizard" @success="handleSchemeCreated" />
   </div>
 </template>
 
