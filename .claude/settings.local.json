@@ -30,7 +30,9 @@
       "Bash(npx playwright:*)",
       "Bash(docker-compose:*)",
       "Bash(docker inspect:*)",
-      "Bash(docker exec:*)"
+      "Bash(docker exec:*)",
+      "Bash(taskkill:*)",
+      "Bash(kill:*)"
     ]
   },
   "hooks": {

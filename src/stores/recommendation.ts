@@ -32,12 +32,26 @@ export const useRecommendationStore = defineStore('recommendation', () => {
     const rec = recommendations.value.find(r => r.id === recId)
     if (!rec) return
 
-    const record = await recordService.create({
-      date: rec.date,
-      schemeId: rec.schemeId,
-      schemeName: 'current',
-      meals: rec.meals
-    })
+    // 检查是否已有记录
+    const existing = await recordService.getByDate(rec.date)
+
+    let record
+    if (existing) {
+      // 更新现有记录
+      record = await recordService.update(existing.id, {
+        meals: rec.meals,
+        schemeId: rec.schemeId,
+        schemeName: 'current'
+      })
+    } else {
+      // 创建新记录
+      record = await recordService.create({
+        date: rec.date,
+        schemeId: rec.schemeId,
+        schemeName: 'current',
+        meals: rec.meals
+      })
+    }
 
     const schemeStore = useSchemeStore()
     Object.entries(rec.meals).forEach(([group, dish]) => {
