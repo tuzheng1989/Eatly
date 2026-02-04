@@ -14,14 +14,25 @@
     <div v-else class="meals-edit">
       <div v-for="(dish, group) in editableMeals" :key="group" class="meal-edit-item">
         <span class="group-label">{{ group }}组:</span>
-        <n-select
-          :value="dish"
-          :options="poolOptions[group as keyof typeof poolOptions]"
-          @update:value="(value: string) => editableMeals[group as keyof typeof editableMeals] = value"
-          filterable
-          size="small"
-          style="flex: 1"
-        />
+        <div class="meal-edit-content">
+          <n-select
+            :value="dish"
+            :options="poolOptions[group as keyof typeof poolOptions]"
+            @update:value="(value: string) => handleMealChange(group as keyof typeof editableMeals, value)"
+            filterable
+            size="small"
+            style="flex: 1"
+          />
+          <n-input
+            v-if="dish === '其他'"
+            :value="customMeals[group as keyof typeof customMeals]"
+            @update:value="(value: string) => customMeals[group as keyof typeof customMeals] = value"
+            placeholder="请输入自定义菜品名称"
+            size="small"
+            clearable
+            style="flex: 1; margin-top: 0.5rem"
+          />
+        </div>
       </div>
     </div>
 
