@@ -71,7 +71,9 @@ import {
   NForm,
   NFormItem,
   NInput,
-  NEmpty
+  NEmpty,
+  NCollapse,
+  NCollapseItem
 } from 'naive-ui'
 import { useSchemeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
