@@ -33,7 +33,8 @@
       "Bash(docker exec:*)",
       "Bash(taskkill:*)",
       "Bash(kill:*)",
-      "mcp__zai-mcp-server__analyze_image"
+      "mcp__zai-mcp-server__analyze_image",
+      "Bash(git push:*)"
     ]
   },
   "hooks": {
