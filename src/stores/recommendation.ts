@@ -31,11 +31,13 @@ export const useRecommendationStore = defineStore('recommendation', () => {
     records
       .filter(record => record.schemeId === currentSchemeId)
       .forEach(record => {
-        ;(['A', 'B', 'C'] as PoolType[]).forEach(type => {
+        const poolTypes: PoolType[] = ['A', 'B', 'C']
+        poolTypes.forEach(type => {
           const dish = record.meals[type]
-          const index = remainingPools[type].indexOf(dish)
+          const pool = remainingPools[type]
+          const index = pool.indexOf(dish)
           if (index !== -1) {
-            remainingPools[type].splice(index, 1)
+            pool.splice(index, 1)
           }
         })
       })
