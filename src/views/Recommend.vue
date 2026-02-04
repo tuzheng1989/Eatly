@@ -18,7 +18,7 @@
       />
     </div>
 
-    <n-empty v-else-if="!loading" description="暂无推荐，请生成推荐" />
+    <n-empty v-else-if="!loading" description="暂无推荐，请点击上方按钮生成推荐" />
   </div>
 </template>
 
