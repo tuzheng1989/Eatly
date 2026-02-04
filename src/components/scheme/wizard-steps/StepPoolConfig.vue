@@ -72,7 +72,6 @@ import {
   NSpace,
   NAlert,
   NCard,
-  NStatisticGroup,
   NStatistic
 } from 'naive-ui'
 
