@@ -31,7 +31,14 @@
           :options="poolOptions.A"
           placeholder="请选择A组菜品"
           filterable
-          tag
+          clearable
+          @update:value="() => handleMealChange('A')"
+        />
+        <n-input
+          v-if="formValue.meals.A === '其他'"
+          v-model:value="customMeals.A"
+          placeholder="请输入自定义菜品名称"
+          style="margin-top: 0.5rem"
           clearable
         />
       </n-form-item>
@@ -42,7 +49,14 @@
           :options="poolOptions.B"
           placeholder="请选择B组菜品"
           filterable
-          tag
+          clearable
+          @update:value="() => handleMealChange('B')"
+        />
+        <n-input
+          v-if="formValue.meals.B === '其他'"
+          v-model:value="customMeals.B"
+          placeholder="请输入自定义菜品名称"
+          style="margin-top: 0.5rem"
           clearable
         />
       </n-form-item>
@@ -53,7 +67,14 @@
           :options="poolOptions.C"
           placeholder="请选择C组菜品"
           filterable
-          tag
+          clearable
+          @update:value="() => handleMealChange('C')"
+        />
+        <n-input
+          v-if="formValue.meals.C === '其他'"
+          v-model:value="customMeals.C"
+          placeholder="请输入自定义菜品名称"
+          style="margin-top: 0.5rem"
           clearable
         />
       </n-form-item>
