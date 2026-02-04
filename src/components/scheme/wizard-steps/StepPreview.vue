@@ -40,7 +40,7 @@
 
 <script setup lang="ts">
 import { inject, computed } from 'vue'
-import { NSpace, NCard, NDescriptions, NDescriptionsItem, NTag, NAlert, NStatisticGroup, NStatistic } from 'naive-ui'
+import { NSpace, NCard, NDescriptions, NDescriptionsItem, NTag, NAlert, NStatistic } from 'naive-ui'
 
 const wizardData = inject<Ref<any>>('wizardData')!
 
