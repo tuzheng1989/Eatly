@@ -79,7 +79,13 @@ const calendarDays = computed(() => {
     date.getMonth() === today.getMonth() &&
     date.getFullYear() === today.getFullYear()
 
-  const days: Array<{ date: Date; hasRecord: boolean; isCurrentMonth: boolean; isToday: boolean }> = []
+  const days: Array<{
+    date: Date
+    hasRecord: boolean
+    isCurrentMonth: boolean
+    isToday: boolean
+    record?: Record
+  }> = []
 
   // 填充月初空白
   for (let i = 0; i < startDayOfWeek; i++) {
@@ -96,9 +102,16 @@ const calendarDays = computed(() => {
   for (let i = 1; i <= daysInMonth; i++) {
     const date = new Date(year, month, i)
     const dateStr = dayjs(date).format('YYYY-MM-DD')
-    const hasRecord = props.records.some(r => r.date === dateStr)
+    const record = props.records.find(r => r.date === dateStr)
+    const hasRecord = !!record
     const isTodayDate = isToday(date)
-    days.push({ date, hasRecord, isCurrentMonth: true, isToday: isTodayDate })
+    days.push({
+      date,
+      hasRecord,
+      isCurrentMonth: true,
+      isToday: isTodayDate,
+      record: record || undefined
+    })
   }
 
   return days
