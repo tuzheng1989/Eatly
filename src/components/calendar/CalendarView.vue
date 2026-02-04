@@ -154,22 +154,41 @@ function handleDateClick(date: Date) {
   justify-content: center;
   border-radius: 4px;
   cursor: pointer;
-  transition: background 0.3s;
+  transition: all 0.3s;
+  background: white;
+  border: 1px solid #e0e0e0;
 }
 
 .day-cell:hover {
-  background: var(--color-background-soft);
+  background: #f5f5f5;
+  transform: scale(1.05);
 }
 
+/* 有记录的日期：蓝色背景（最高优先级） */
 .day-cell.has-record {
   background: var(--color-primary);
   color: white;
   font-weight: bold;
+  border-color: var(--color-primary);
 }
 
-.day-cell.is-today {
-  border: 2px solid var(--color-primary);
+/* 今天没有记录：黄色背景 */
+.day-cell.is-today:not(.has-record) {
+  background: #ffd666;
   font-weight: bold;
+  border-color: #ffa8a8;
+}
+
+.day-cell.is-today:not(.has-record):hover {
+  background: #ffc4c4;
+}
+
+/* 有记录的今天：保持蓝色背景 */
+.day-cell.is-today.has-record {
+  background: var(--color-primary);
+  color: white;
+  font-weight: bold;
+  border-color: var(--color-primary);
 }
 
 .day-cell.other-month {
