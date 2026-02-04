@@ -87,21 +87,21 @@ export const useRecommendationStore = defineStore('recommendation', () => {
       const allRecords = await recordService.getAll()
 
       // 3. 计算剩余池子（方案池子 - 已记录菜品）
-      const remainingPools = calculateRemainingPools(
+      const calculatedRemainingPools = calculateRemainingPools(
         schemeStore.currentPools,
         allRecords
       )
 
       // 4. 使用剩余池子生成推荐
       const result = await recommendService.generate(
-        remainingPools,
+        calculatedRemainingPools,
         schemeStore.currentScheme?.originalPools || schemeStore.currentPools,
         count,
         adjustedStartDate
       )
 
       // 5. 保存剩余池子供编辑使用
-      remainingPools.value = remainingPools
+      remainingPools.value = calculatedRemainingPools
 
       recommendations.value = result
       return result
