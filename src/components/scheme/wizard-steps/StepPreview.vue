@@ -28,9 +28,7 @@
 
     <!-- 统计信息 -->
     <n-alert type="success" :show-icon="false">
-      <n-statistic-group>
-        <n-statistic label="总菜品数" :value="totalDishes" />
-      </n-statistic-group>
+      <n-statistic label="总菜品数" :value="totalDishes" />
     </n-alert>
 
     <!-- 确认提示 -->
