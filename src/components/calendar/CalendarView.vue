@@ -167,6 +167,11 @@ function handleDateClick(date: Date) {
   font-weight: bold;
 }
 
+.day-cell.is-today {
+  border: 2px solid var(--color-primary);
+  font-weight: bold;
+}
+
 .day-cell.other-month {
   opacity: 0.3;
 }
