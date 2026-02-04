@@ -1,9 +1,4 @@
 import { test, expect } from '@playwright/test'
-import { HomePage } from '../pages/HomePage'
-import { RecommendPage } from '../pages/RecommendPage'
-import { RecordPage } from '../pages/RecordPage'
-import { CalendarPage } from '../pages/CalendarPage'
-import { StatisticsPage } from '../pages/StatisticsPage'
 
 /**
  * 导航测试套件
