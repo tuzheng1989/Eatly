@@ -143,6 +143,10 @@ export const useRecommendationStore = defineStore('recommendation', () => {
 
     const schemeStore = useSchemeStore()
     Object.entries(rec.meals).forEach(([group, dish]) => {
+      // 跳过"其他"菜品，不参与池子维护
+      if (dish === '其他' || dish.startsWith('其他:')) {
+        return
+      }
       const pool = schemeStore.currentPools[group as keyof typeof rec.meals]
       const index = pool.indexOf(dish)
       if (index !== -1) {
