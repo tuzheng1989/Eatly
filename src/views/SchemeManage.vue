@@ -22,6 +22,15 @@
               <div class="info">
                 <h3>{{ scheme.name }}</h3>
                 <p>A: {{ scheme.pools.A.length }} | B: {{ scheme.pools.B.length }} | C: {{ scheme.pools.C.length }}</p>
+                <n-collapse arrow-placement="right">
+                  <n-collapse-item title="查看菜品详情">
+                    <div class="pool-details">
+                      <div><strong>A组:</strong> {{ scheme.pools.A.join('、') || '(无)' }}</div>
+                      <div><strong>B组:</strong> {{ scheme.pools.B.join('、') || '(无)' }}</div>
+                      <div><strong>C组:</strong> {{ scheme.pools.C.join('、') || '(无)' }}</div>
+                    </div>
+                  </n-collapse-item>
+                </n-collapse>
               </div>
               <div class="actions">
                 <n-button v-if="currentSchemeId !== scheme.id" @click="handleSelect(scheme.id)">
