@@ -14,8 +14,7 @@ export const DEFAULT_SCHEME: Omit<Scheme, 'id' | 'createdAt' | 'updatedAt'> = {
       '菜心',
       '包菜',
       '豌豆尖',
-      '筒篙',
-      '其他时令'
+      '筒篙'
     ],
     B: [
       '豆腐',
@@ -26,8 +25,7 @@ export const DEFAULT_SCHEME: Omit<Scheme, 'id' | 'createdAt' | 'updatedAt'> = {
       '荷兰豆',
       '四季豆',
       '扁豆',
-      '千叶豆腐',
-      '其他豆类'
+      '千叶豆腐'
     ],
     C: [
       '西葫芦',
@@ -40,8 +38,7 @@ export const DEFAULT_SCHEME: Omit<Scheme, 'id' | 'createdAt' | 'updatedAt'> = {
       '南瓜',
       '土豆',
       '藕',
-      '花菜',
-      '其他瓜类'
+      '花菜'
     ]
   },
   originalPools: {
@@ -54,8 +51,7 @@ export const DEFAULT_SCHEME: Omit<Scheme, 'id' | 'createdAt' | 'updatedAt'> = {
       '菜心',
       '包菜',
       '豌豆尖',
-      '筒篙',
-      '其他时令'
+      '筒篙'
     ],
     B: [
       '豆腐',
@@ -66,8 +62,7 @@ export const DEFAULT_SCHEME: Omit<Scheme, 'id' | 'createdAt' | 'updatedAt'> = {
       '荷兰豆',
       '四季豆',
       '扁豆',
-      '千叶豆腐',
-      '其他豆类'
+      '千叶豆腐'
     ],
     C: [
       '西葫芦',
@@ -80,8 +75,7 @@ export const DEFAULT_SCHEME: Omit<Scheme, 'id' | 'createdAt' | 'updatedAt'> = {
       '南瓜',
       '土豆',
       '藕',
-      '花菜',
-      '其他瓜类'
+      '花菜'
     ]
   }
 }
