@@ -164,12 +164,13 @@ function handleDateClick(date: Date) {
   transform: scale(1.05);
 }
 
-/* 有记录的日期：蓝色背景（最高优先级） */
+/* 有记录的日期：绿色背景（最高优先级） */
 .day-cell.has-record {
-  background: var(--color-primary);
+  background: #42b983;
   color: white;
   font-weight: bold;
-  border-color: var(--color-primary);
+  border: 2px solid #42b983;
+  box-shadow: 0 2px 4px rgba(66, 185, 131, 0.3);
 }
 
 /* 今天没有记录：黄色背景 */
@@ -183,12 +184,13 @@ function handleDateClick(date: Date) {
   background: #ffc4c4;
 }
 
-/* 有记录的今天：保持蓝色背景 */
+/* 有记录的今天：保持绿色背景 */
 .day-cell.is-today.has-record {
-  background: var(--color-primary);
+  background: #42b983;
   color: white;
   font-weight: bold;
-  border-color: var(--color-primary);
+  border: 2px solid #42b983;
+  box-shadow: 0 2px 4px rgba(66, 185, 131, 0.3);
 }
 
 .day-cell.other-month {
