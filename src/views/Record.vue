@@ -255,6 +255,7 @@ function handleReset() {
     } as MealGroup & { A: string | null; B: string | null; C: string | null },
     note: ''
   }
+  customMeals.value = { A: '', B: '', C: '' }
   formRef.value?.restoreValidation()
 }
 
