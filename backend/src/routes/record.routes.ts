@@ -50,7 +50,8 @@ router.get('/date/:date', async (req, res) => {
     const result = await pool.query(query, [date])
 
     if (result.rows.length === 0) {
-      return res.status(404).json(error('记录不存在'))
+      // 返回 200 + null，而不是 404，避免前端抛出异常
+      return res.json(success(null))
     }
 
     res.json(success(result.rows[0]))
