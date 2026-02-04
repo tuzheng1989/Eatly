@@ -9,6 +9,7 @@ import dayjs from 'dayjs'
 export const useRecommendationStore = defineStore('recommendation', () => {
   const recommendations = ref<Recommendation[]>([])
   const loading = ref(false)
+  const remainingPools = ref<PoolGroup>({ A: [], B: [], C: [] })
 
   /**
    * 计算剩余池子（方案池子 - 已记录菜品）
