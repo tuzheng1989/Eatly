@@ -2,26 +2,80 @@
   <div class="record">
     <h1>记录饮食 📝</h1>
 
-    <n-form :model="formValue" label-placement="left" label-width="80">
-      <n-form-item label="日期">
-        <n-input v-model:value="formValue.date" placeholder="YYYY-MM-DD" />
+    <!-- 当前方案提示 -->
+    <n-alert v-if="currentScheme" type="info" style="margin-bottom: 1.5rem">
+      当前方案：<strong>{{ currentScheme.name }}</strong>
+      <template v-if="currentScheme.description">
+        - {{ currentScheme.description }}
+      </template>
+    </n-alert>
+    <n-alert v-else type="warning" style="margin-bottom: 1.5rem">
+      未选择方案，请先在方案管理中选择一个方案
+    </n-alert>
+
+    <n-form ref="formRef" :model="formValue" :rules="rules" label-placement="left" label-width="100">
+      <n-form-item label="记录日期" path="date">
+        <n-date-picker
+          v-model:formatted-value="formValue.date"
+          value-format="yyyy-MM-dd"
+          type="date"
+          placeholder="选择日期"
+          style="width: 100%"
+          clearable
+        />
       </n-form-item>
-      <n-form-item label="A组菜品">
-        <n-input v-model:value="formValue.meals.A" placeholder="输入菜品名称" />
+
+      <n-form-item label="A组菜品" path="meals.A">
+        <n-select
+          v-model:value="formValue.meals.A"
+          :options="poolOptions.A"
+          placeholder="请选择A组菜品"
+          filterable
+          tag
+          clearable
+        />
       </n-form-item>
-      <n-form-item label="B组菜品">
-        <n-input v-model:value="formValue.meals.B" placeholder="输入菜品名称" />
+
+      <n-form-item label="B组菜品" path="meals.B">
+        <n-select
+          v-model:value="formValue.meals.B"
+          :options="poolOptions.B"
+          placeholder="请选择B组菜品"
+          filterable
+          tag
+          clearable
+        />
       </n-form-item>
-      <n-form-item label="C组菜品">
-        <n-input v-model:value="formValue.meals.C" placeholder="输入菜品名称" />
+
+      <n-form-item label="C组菜品" path="meals.C">
+        <n-select
+          v-model:value="formValue.meals.C"
+          :options="poolOptions.C"
+          placeholder="请选择C组菜品"
+          filterable
+          tag
+          clearable
+        />
       </n-form-item>
+
       <n-form-item label="备注">
-        <n-input v-model:value="formValue.note" type="textarea" placeholder="可选备注" />
+        <n-input
+          v-model:value="formValue.note"
+          type="textarea"
+          placeholder="可选备注"
+          :rows="3"
+        />
       </n-form-item>
+
       <n-form-item>
-        <n-button type="primary" :loading="loading" @click="handleSubmit">
-          保存记录
-        </n-button>
+        <n-space>
+          <n-button type="primary" :loading="loading" @click="handleSubmit">
+            保存记录
+          </n-button>
+          <n-button @click="handleReset">
+            重置表单
+          </n-button>
+        </n-space>
       </n-form-item>
     </n-form>
 
