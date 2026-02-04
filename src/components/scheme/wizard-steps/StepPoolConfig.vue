@@ -52,12 +52,12 @@
 
     <!-- 统计信息 -->
     <n-card title="菜品统计" size="small">
-      <n-statistic-group>
+      <n-space>
         <n-statistic label="A组数量" :value="localPools.A.length" />
         <n-statistic label="B组数量" :value="localPools.B.length" />
         <n-statistic label="C组数量" :value="localPools.C.length" />
         <n-statistic label="总计" :value="totalCount" />
-      </n-statistic-group>
+      </n-space>
     </n-card>
   </n-space>
 </template>
