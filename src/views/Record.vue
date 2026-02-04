@@ -98,42 +98,119 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted } from 'vue'
-import { NForm, NFormItem, NInput, NButton, NDivider, NList, NListItem, NEmpty } from 'naive-ui'
-import { useRecordStore } from '@/stores'
+import { ref, computed, onMounted } from 'vue'
+import {
+  NForm,
+  NFormItem,
+  NInput,
+  NButton,
+  NDivider,
+  NList,
+  NListItem,
+  NEmpty,
+  NDatePicker,
+  NSelect,
+  NSpace,
+  NAlert,
+  type FormInst,
+  type FormRules
+} from 'naive-ui'
+import { useRecordStore, useSchemeStore } from '@/stores'
 import { storeToRefs } from 'pinia'
 import type { MealGroup } from '@/types'
+import dayjs from 'dayjs'
 
 const recordStore = useRecordStore()
 const { records, loading } = storeToRefs(recordStore)
 
+const schemeStore = useSchemeStore()
+const { currentScheme } = storeToRefs(schemeStore)
+
+const formRef = ref<FormInst>()
+
+// 表单验证规则
+const rules: FormRules = {
+  date: [
+    { required: true, message: '请选择日期', trigger: 'blur' }
+  ],
+  'meals.A': [
+    { required: true, message: '请选择A组菜品', trigger: 'change' }
+  ],
+  'meals.B': [
+    { required: true, message: '请选择B组菜品', trigger: 'change' }
+  ],
+  'meals.C': [
+    { required: true, message: '请选择C组菜品', trigger: 'change' }
+  ]
+}
+
+// 菜品池选项（从当前方案中获取）
+const poolOptions = computed(() => {
+  if (!currentScheme.value?.pools) {
+    return { A: [], B: [], C: [] }
+  }
+
+  const createOptions = (items: string[]) =>
+    items.map(item => ({ label: item, value: item }))
+
+  return {
+    A: createOptions(currentScheme.value.pools.A),
+    B: createOptions(currentScheme.value.pools.B),
+    C: createOptions(currentScheme.value.pools.C)
+  }
+})
+
 const formValue = ref({
-  date: new Date().toISOString().split('T')[0],
+  date: dayjs().format('YYYY-MM-DD'),
   meals: {
-    A: '',
-    B: '',
-    C: ''
-  } as MealGroup,
+    A: null as string | null,
+    B: null as string | null,
+    C: null as string | null
+  } as MealGroup & { A: string | null; B: string | null; C: string | null },
   note: ''
 })
 
 async function handleSubmit() {
-  if (!formValue.value.meals.A || !formValue.value.meals.B || !formValue.value.meals.C) {
-    window.$message?.error('请填写所有菜品')
-    return
+  try {
+    await formRef.value?.validate()
+
+    // 验证菜品是否已选择
+    if (!formValue.value.meals.A || !formValue.value.meals.B || !formValue.value.meals.C) {
+      window.$message?.error('请选择所有菜品')
+      return
+    }
+
+    await recordStore.createRecord({
+      date: formValue.value.date,
+      schemeId: currentScheme.value?.id || '',
+      schemeName: currentScheme.value?.name || '手动记录',
+      meals: {
+        A: formValue.value.meals.A,
+        B: formValue.value.meals.B,
+        C: formValue.value.meals.C
+      } as MealGroup,
+      note: formValue.value.note
+    })
+
+    window.$message?.success('记录已保存')
+    handleReset()
+  } catch (error) {
+    // 表单验证失败，不做处理
+    console.log('表单验证失败:', error)
   }
+}
 
-  await recordStore.createRecord({
-    date: formValue.value.date,
-    schemeId: '',
-    schemeName: '手动记录',
-    meals: formValue.value.meals,
-    note: formValue.value.note
-  })
-
-  window.$message?.success('记录已保存')
-  formValue.value.meals = { A: '', B: '', C: '' }
-  formValue.value.note = ''
+function handleReset() {
+  formValue.value = {
+    date: dayjs().format('YYYY-MM-DD'),
+    meals: {
+      A: null,
+      B: null,
+      C: null
+    } as MealGroup & { A: string | null; B: string | null; C: string | null },
+    note: ''
+  }
+  formRef.value?.restoreValidation()
 }
 
 async function handleDelete(id: string) {
@@ -143,6 +220,7 @@ async function handleDelete(id: string) {
 
 onMounted(async () => {
   await recordStore.loadRecords()
+  await schemeStore.loadSchemes()
 })
 </script>
 
