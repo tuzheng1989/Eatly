@@ -114,6 +114,7 @@ export const useSchemeStore = defineStore('scheme', () => {
     currentPools,
     currentScheme,
     poolStatus,
+    initializeScheme,
     loadSchemes,
     createScheme,
     updateScheme,
