@@ -45,8 +45,8 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { NButton, NTag, NSelect } from 'naive-ui'
-import type { Recommendation, MealGroup, PoolType } from '@/types'
-import { useSchemeStore } from '@/stores'
+import type { Recommendation, MealGroup, PoolGroup, PoolType } from '@/types'
+import { useRecommendationStore } from '@/stores'
 import dayjs from 'dayjs'
 
 const props = defineProps<{
@@ -59,15 +59,15 @@ const emit = defineEmits<{
   update: [meals: MealGroup]
 }>()
 
-const schemeStore = useSchemeStore()
+const recommendStore = useRecommendationStore()
 
 // 编辑状态
 const isEditing = ref(false)
 const editableMeals = ref<MealGroup>({ A: '', B: '', C: '' })
 
-// 池子选项（从当前方案获取）
+// 池子选项（从剩余池子获取）
 const poolOptions = computed(() => {
-  const pools = schemeStore.currentPools
+  const pools = recommendStore.remainingPools
   return {
     A: pools.A.map(dish => ({ label: dish, value: dish })),
     B: pools.B.map(dish => ({ label: dish, value: dish })),
