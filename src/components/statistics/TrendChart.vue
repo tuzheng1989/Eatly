@@ -51,13 +51,32 @@ function updateChart() {
 
   const option: echarts.EChartsOption = {
     title: { text: '饮食摄入趋势' },
-    tooltip: { trigger: 'axis' },
+    tooltip: {
+      trigger: 'axis',
+      formatter: (params: any) => {
+        if (!Array.isArray(params) || params.length === 0) return ''
+
+        const date = params[0].axisValue
+        let result = `<strong>${date}</strong><br/>`
+
+        params.forEach((item: any) => {
+          const value = item.value
+          const count = typeof value === 'number' ? value : 0
+          result += `${item.marker} ${item.seriesName}: ${count} 个<br/>`
+        })
+
+        return result
+      }
+    },
     legend: { data: ['A组', 'B组', 'C组'] },
     xAxis: {
       type: 'category',
       data: props.data.map(d => d.date)
     },
-    yAxis: { type: 'value' },
+    yAxis: {
+      type: 'value',
+      name: '菜品数量'
+    },
     series: [
       {
         name: 'A组',
