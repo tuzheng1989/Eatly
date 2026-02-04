@@ -55,7 +55,7 @@ services:
       context: .
       dockerfile: Dockerfile
       args:
-        - VITE_API_URL=http://101.200.122.190/api
+        - VITE_API_URL=http://101.200.122.190/eatly/api
     container_name: eatly-frontend
     restart: unless-stopped
     networks:
