@@ -217,14 +217,22 @@ async function handleSubmit() {
       return
     }
 
+    // 处理"其他"菜品：使用自定义名称或默认为"其他"
+    const processMeal = (group: keyof MealGroup): string => {
+      if (formValue.value.meals[group] === '其他') {
+        return customMeals.value[group] || '其他'
+      }
+      return formValue.value.meals[group] as string
+    }
+
     await recordStore.createRecord({
       date: formValue.value.date,
       schemeId: currentScheme.value?.id || '',
       schemeName: currentScheme.value?.name || '手动记录',
       meals: {
-        A: formValue.value.meals.A,
-        B: formValue.value.meals.B,
-        C: formValue.value.meals.C
+        A: processMeal('A'),
+        B: processMeal('B'),
+        C: processMeal('C')
       } as MealGroup,
       note: formValue.value.note
     })
