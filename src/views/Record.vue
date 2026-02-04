@@ -231,14 +231,52 @@ onMounted(async () => {
   padding: 2rem;
 }
 
+.record h1 {
+  margin-bottom: 1.5rem;
+  color: var(--n-text-color);
+}
+
+.record h2 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  color: var(--n-text-color-2);
+}
+
 .record-item {
   display: flex;
   gap: 1rem;
   align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--n-border-color);
+}
+
+.record-item:last-child {
+  border-bottom: none;
 }
 
 .record-item .date {
   font-weight: bold;
   min-width: 100px;
+  color: var(--n-text-color);
+}
+
+.record-item .meals {
+  flex: 1;
+  color: var(--n-text-color-2);
+}
+
+/* 表单项间距优化 */
+:deep(.n-form-item) {
+  margin-bottom: 1.25rem;
+}
+
+/* 日期选择器宽度优化 */
+:deep(.n-date-picker) {
+  width: 100%;
+}
+
+/* 选择器下拉菜单宽度优化 */
+:deep(.n-select) {
+  width: 100%;
 }
 </style>
