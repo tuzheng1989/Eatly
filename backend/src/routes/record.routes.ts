@@ -6,25 +6,24 @@ const router = Router()
 const success = <T,>(data: T) => ({ success: true, data })
 const error = (message: string) => ({ success: false, error: message })
 
+// 统一的查询字段，使用 TO_CHAR 避免时区问题，使用 camelCase 匹配前端类型
+const RECORD_FIELDS = `
+  id,
+  TO_CHAR(date, 'YYYY-MM-DD') as date,
+  scheme_id as "schemeId",
+  scheme_name as "schemeName",
+  meals,
+  note,
+  created_at as "createdAt",
+  updated_at as "updatedAt"
+`
+
 // 获取所有记录
 router.get('/', async (req, res) => {
   try {
     const { start, end } = req.query
 
-    // 使用 TO_CHAR 确保日期格式正确，避免时区问题
-    // 使用 snake_case to camelCase 转换匹配前端类型
-    let query = `
-      SELECT
-        id,
-        TO_CHAR(date, 'YYYY-MM-DD') as date,
-        scheme_id as "schemeId",
-        scheme_name as "schemeName",
-        meals,
-        note,
-        created_at as "createdAt",
-        updated_at as "updatedAt"
-      FROM records
-    `
+    let query = `SELECT ${RECORD_FIELDS} FROM records`
     const params: (string | number)[] = []
 
     if (start && end) {
@@ -46,13 +45,15 @@ router.get('/', async (req, res) => {
 router.get('/date/:date', async (req, res) => {
   try {
     const { date } = req.params
-    const result = await pool.query('SELECT * FROM records WHERE date = $1', [date])
+    const query = `SELECT ${RECORD_FIELDS} FROM records WHERE date = $1`
+
+    const result = await pool.query(query, [date])
 
     if (result.rows.length === 0) {
       return res.status(404).json(error('记录不存在'))
     }
 
-    res.json(success(formatRecord(result.rows[0])))
+    res.json(success(result.rows[0]))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
     res.status(500).json(error(message))
@@ -75,11 +76,11 @@ router.post('/', async (req, res) => {
     const result = await pool.query(
       `INSERT INTO records (date, scheme_id, scheme_name, meals, note)
        VALUES ($1, $2, $3, $4, $5)
-       RETURNING *`,
+       RETURNING ${RECORD_FIELDS}`,
       [date, schemeId || null, schemeName || '手动记录', JSON.stringify(meals), note || null]
     )
 
-    res.status(201).json(success(formatRecord(result.rows[0])))
+    res.status(201).json(success(result.rows[0]))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
 
@@ -128,7 +129,7 @@ router.put('/:id', async (req, res) => {
     }
 
     params.push(id)
-    const query = `UPDATE records SET ${updates.join(', ')} WHERE id = $${paramIndex} RETURNING *`
+    const query = `UPDATE records SET ${updates.join(', ')} WHERE id = $${paramIndex} RETURNING ${RECORD_FIELDS}`
 
     const result = await pool.query(query, params)
 
@@ -136,7 +137,7 @@ router.put('/:id', async (req, res) => {
       return res.status(404).json(error('记录不存在'))
     }
 
-    res.json(success(formatRecord(result.rows[0])))
+    res.json(success(result.rows[0]))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
     res.status(500).json(error(message))
@@ -147,7 +148,7 @@ router.put('/:id', async (req, res) => {
 router.delete('/:id', async (req, res) => {
   try {
     const { id } = req.params
-    const result = await pool.query('DELETE FROM records WHERE id = $1 RETURNING *', [id])
+    const result = await pool.query('DELETE FROM records WHERE id = $1 RETURNING id', [id])
 
     if (result.rows.length === 0) {
       return res.status(404).json(error('记录不存在'))
