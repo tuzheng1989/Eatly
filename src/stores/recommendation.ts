@@ -165,6 +165,7 @@ export const useRecommendationStore = defineStore('recommendation', () => {
   return {
     recommendations,
     loading,
+    remainingPools,
     generateRecommendations,
     confirmRecommendation,
     updateRecommendationMeals
