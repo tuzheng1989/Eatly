@@ -6,6 +6,23 @@ const router = Router()
 const success = <T,>(data: T) => ({ success: true, data })
 const error = (message: string) => ({ success: false, error: message })
 
+// 格式化日期为 YYYY-MM-DD
+function formatDate(date: Date | string): string {
+  const d = new Date(date)
+  const year = d.getFullYear()
+  const month = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${year}-${month}-${day}`
+}
+
+// 格式化记录数据，将 date 从 Date 对象转换为字符串
+function formatRecord(record: any): any {
+  return {
+    ...record,
+    date: formatDate(record.date)
+  }
+}
+
 // 获取所有记录
 router.get('/', async (req, res) => {
   try {
@@ -16,13 +33,14 @@ router.get('/', async (req, res) => {
 
     if (start && end) {
       query += ' WHERE date >= $1 AND date <= $2'
-      params.push(start, end)
+      params.push(start as string, end as string)
     }
 
     query += ' ORDER BY date DESC'
 
     const result = await pool.query(query, params)
-    res.json(success(result.rows))
+    const formattedRecords = result.rows.map(formatRecord)
+    res.json(success(formattedRecords))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
     res.status(500).json(error(message))
@@ -39,7 +57,7 @@ router.get('/date/:date', async (req, res) => {
       return res.status(404).json(error('记录不存在'))
     }
 
-    res.json(success(result.rows[0]))
+    res.json(success(formatRecord(result.rows[0])))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
     res.status(500).json(error(message))
@@ -49,27 +67,32 @@ router.get('/date/:date', async (req, res) => {
 // 创建记录
 router.post('/', async (req, res) => {
   try {
-    const { date, breakfast, lunch, dinner, snack } = req.body
+    const { date, schemeId, schemeName, meals, note } = req.body
 
     if (!date) {
       return res.status(400).json(error('缺少日期字段'))
     }
 
+    if (!meals || typeof meals !== 'object') {
+      return res.status(400).json(error('缺少 meals 字段或格式错误'))
+    }
+
     const result = await pool.query(
-      `INSERT INTO records (date, breakfast, lunch, dinner, snack)
+      `INSERT INTO records (date, scheme_id, scheme_name, meals, note)
        VALUES ($1, $2, $3, $4, $5)
-       ON CONFLICT (date) DO UPDATE
-       SET breakfast = EXCLUDED.breakfast,
-           lunch = EXCLUDED.lunch,
-           dinner = EXCLUDED.dinner,
-           snack = EXCLUDED.snack
        RETURNING *`,
-      [date, JSON.stringify(breakfast || []), JSON.stringify(lunch || []), JSON.stringify(dinner || []), JSON.stringify(snack || [])]
+      [date, schemeId || null, schemeName || '手动记录', JSON.stringify(meals), note || null]
     )
 
-    res.status(201).json(success(result.rows[0]))
+    res.status(201).json(success(formatRecord(result.rows[0])))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
+
+    // 处理唯一约束冲突
+    if (message.includes('duplicate key')) {
+      return res.status(409).json(error('该日期已有记录'))
+    }
+
     res.status(500).json(error(message))
   }
 })
@@ -78,25 +101,47 @@ router.post('/', async (req, res) => {
 router.put('/:id', async (req, res) => {
   try {
     const { id } = req.params
-    const { date, breakfast, lunch, dinner, snack } = req.body
+    const { date, schemeId, schemeName, meals, note } = req.body
 
-    const result = await pool.query(
-      `UPDATE records
-       SET date = COALESCE($1, date),
-           breakfast = COALESCE($2, breakfast),
-           lunch = COALESCE($3, lunch),
-           dinner = COALESCE($4, dinner),
-           snack = COALESCE($5, snack)
-       WHERE id = $6
-       RETURNING *`,
-      [date, JSON.stringify(breakfast), JSON.stringify(lunch), JSON.stringify(dinner), JSON.stringify(snack), id]
-    )
+    const updates: string[] = []
+    const params: (string | null)[] = []
+    let paramIndex = 1
+
+    if (date !== undefined) {
+      updates.push(`date = $${paramIndex++}`)
+      params.push(date)
+    }
+    if (schemeId !== undefined) {
+      updates.push(`scheme_id = $${paramIndex++}`)
+      params.push(schemeId || null)
+    }
+    if (schemeName !== undefined) {
+      updates.push(`scheme_name = $${paramIndex++}`)
+      params.push(schemeName || null)
+    }
+    if (meals !== undefined) {
+      updates.push(`meals = $${paramIndex++}`)
+      params.push(JSON.stringify(meals))
+    }
+    if (note !== undefined) {
+      updates.push(`note = $${paramIndex++}`)
+      params.push(note || null)
+    }
+
+    if (updates.length === 0) {
+      return res.status(400).json(error('没有要更新的字段'))
+    }
+
+    params.push(id)
+    const query = `UPDATE records SET ${updates.join(', ')} WHERE id = $${paramIndex} RETURNING *`
+
+    const result = await pool.query(query, params)
 
     if (result.rows.length === 0) {
       return res.status(404).json(error('记录不存在'))
     }
 
-    res.json(success(result.rows[0]))
+    res.json(success(formatRecord(result.rows[0])))
   } catch (err: unknown) {
     const message = err instanceof Error ? err.message : '未知错误'
     res.status(500).json(error(message))
