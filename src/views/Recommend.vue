@@ -50,11 +50,6 @@ async function handleConfirm(rec: import('@/types').Recommendation) {
   await recommendStore.confirmRecommendation(rec.id)
   window.$message?.success('记录已创建')
 }
-
-onMounted(async () => {
-  // 自动生成一次推荐
-  await handleGenerate(1)
-})
 </script>
 
 <style scoped>
