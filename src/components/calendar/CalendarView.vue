@@ -166,35 +166,90 @@ function handleDateClick(date: Date) {
 }
 
 .day-cell {
-  aspect-ratio: 1;
+  min-height: 100px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  padding: 0.5rem;
   border-radius: 4px;
   cursor: pointer;
   transition: all 0.3s;
   background: white;
   border: 1px solid #e0e0e0;
+  position: relative;
 }
 
 .day-cell:hover {
   background: #f5f5f5;
-  transform: scale(1.05);
+  transform: scale(1.02);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.day-number {
+  font-size: 1.1rem;
+  font-weight: bold;
+  margin-bottom: 0.25rem;
+}
+
+.day-meals {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  overflow: hidden;
+}
+
+.meal-item {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.25rem;
+  border-radius: 2px;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.meal-a {
+  background: rgba(255, 255, 255, 0.2);
+  border-left: 2px solid #ff6b6b;
+}
+
+.meal-b {
+  background: rgba(255, 255, 255, 0.2);
+  border-left: 2px solid #4ecdc4;
+}
+
+.meal-c {
+  background: rgba(255, 255, 255, 0.2);
+  border-left: 2px solid #ffe66d;
 }
 
 /* 有记录的日期：绿色背景（最高优先级） */
 .day-cell.has-record {
   background: #42b983;
   color: white;
-  font-weight: bold;
   border: 2px solid #42b983;
   box-shadow: 0 2px 4px rgba(66, 185, 131, 0.3);
+}
+
+.day-cell.has-record .meal-item {
+  background: rgba(255, 255, 255, 0.15);
+}
+
+.day-cell.has-record .meal-a {
+  border-left-color: rgba(255, 107, 107, 0.8);
+}
+
+.day-cell.has-record .meal-b {
+  border-left-color: rgba(78, 205, 196, 0.8);
+}
+
+.day-cell.has-record .meal-c {
+  border-left-color: rgba(255, 230, 109, 0.8);
 }
 
 /* 今天没有记录：黄色背景 */
 .day-cell.is-today:not(.has-record) {
   background: #ffd666;
-  font-weight: bold;
   border-color: #ffa8a8;
 }
 
@@ -213,5 +268,9 @@ function handleDateClick(date: Date) {
 
 .day-cell.other-month {
   opacity: 0.3;
+}
+
+.day-cell.other-month .day-meals {
+  display: none;
 }
 </style>
