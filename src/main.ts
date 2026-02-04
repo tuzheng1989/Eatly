@@ -16,12 +16,5 @@ app.use(router)
 const appStore = useAppStore()
 appStore.loadSettings()
 
-// Mount app and expose message API
+// Mount app
 const instance = app.mount('#app')
-
-// Expose message API globally
-Object.defineProperty(window, '$message', {
-  get() {
-    return instance.$message
-  }
-})
