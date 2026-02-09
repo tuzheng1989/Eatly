@@ -25,7 +25,7 @@ class RecordService {
       startDate = dayjs().subtract(3, 'month').format('YYYY-MM-DD')
     }
     if (!endDate) {
-      endDate = dayjs().format('YYYY-MM-DD')
+      endDate = dayjs().add(1, 'month').format('YYYY-MM-DD')
     }
     return await this.storage.getRecordsByDateRange(startDate, endDate)
   }
