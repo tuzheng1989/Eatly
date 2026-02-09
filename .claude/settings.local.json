@@ -34,7 +34,8 @@
       "Bash(taskkill:*)",
       "Bash(kill:*)",
       "mcp__zai-mcp-server__analyze_image",
-      "Bash(git push:*)"
+      "Bash(git push:*)",
+      "Bash(claude:*)"
     ]
   },
   "hooks": {

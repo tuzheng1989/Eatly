@@ -1,0 +1,7 @@
+{
+  "enabledPlugins": {
+    "ai-generation-skills@baoyu-skills": true,
+    "content-skills@baoyu-skills": true,
+    "utility-skills@baoyu-skills": true
+  }
+}

@@ -46,8 +46,8 @@ class ApiStorageService implements StorageAdapter {
   }
 
   async getRecordByDate(date: string): Promise<Record | undefined> {
-    const response = await httpService.get<{ success: boolean; data: Record }>(`/records/date/${date}`)
-    return response.data
+    const response = await httpService.get<{ success: boolean; data: Record | null }>(`/records/date/${date}`)
+    return response.data ?? undefined
   }
 
   async createRecord(record: Omit<Record, 'id' | 'createdAt' | 'updatedAt'>): Promise<Record> {
