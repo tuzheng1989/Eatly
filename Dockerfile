@@ -28,6 +28,9 @@ FROM nginx:alpine
 # 从构建阶段复制构建产物
 COPY --from=builder /app/dist /usr/share/nginx/html
 
+# 复制自定义 Nginx 配置（支持 SPA 路由）
+COPY nginx-frontend.conf /etc/nginx/conf.d/default.conf
+
 # 暴露端口
 EXPOSE 80
 
